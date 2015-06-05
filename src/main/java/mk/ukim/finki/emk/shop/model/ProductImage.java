@@ -1,5 +1,7 @@
 package mk.ukim.finki.emk.shop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Blob;
 
@@ -13,6 +15,7 @@ public class ProductImage extends BaseEntity{
     @ManyToOne
     private Product product;
 
+    @JsonIgnore
     private Blob image;
 
     private String fileName;

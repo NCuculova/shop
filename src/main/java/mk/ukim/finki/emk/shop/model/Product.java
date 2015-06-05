@@ -1,8 +1,11 @@
 package mk.ukim.finki.emk.shop.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -10,8 +13,12 @@ import java.util.Date;
  */
 
 @Entity
-@Table(name="products")
-public class Product extends BaseEntity{
+@Table(name = "products")
+public class Product extends BaseEntity {
+
+    public Product() {
+        dateInserted = new Date();
+    }
 
     private String name;
 
@@ -23,11 +30,12 @@ public class Product extends BaseEntity{
 
     private Double discount;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date dateInserted;
 
     private boolean hasDiscount;
 
-    private boolean isFeatured;
+    private boolean featured;
 
     @ManyToOne
     private Category category;
@@ -89,11 +97,11 @@ public class Product extends BaseEntity{
     }
 
     public boolean isFeatured() {
-        return isFeatured;
+        return featured;
     }
 
     public void setIsFeatured(boolean isFeatured) {
-        this.isFeatured = isFeatured;
+        this.featured = isFeatured;
     }
 
     public Category getCategory() {
@@ -102,5 +110,9 @@ public class Product extends BaseEntity{
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public String getDateString() {
+        return new SimpleDateFormat("dd/MM/yy").format(dateInserted);
     }
 }

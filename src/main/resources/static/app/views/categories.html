@@ -1,0 +1,29 @@
+<div class="page-header">
+    <h1>Categories</h1>
+</div>
+<div class="top-button">
+    <button class="btn btn-primary" type="button" ng-click="addCategory()">
+        <i class="fa fa-fw fa-plus"></i> Add category
+    </button>
+</div>
+<table class="table table-condensed table-striped table-bordered">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tr ng-repeat="c in categories">
+        <td>{{c.id}}</td>
+        <td>{{c.name}}</td>
+        <td>{{c.description}}</td>
+        <td>
+            <button type="button" class="btn btn-default btn-xs" ng-click="editCategory(c.id)">Edit</button>
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger btn-xs" ng-click="deleteCategory(c.id)">Delete
+            </button>
+        </td>
+    </tr>
+</table>

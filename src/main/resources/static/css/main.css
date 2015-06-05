@@ -2,3 +2,7 @@ body {
   padding-top: 50px;
   padding-bottom: 20px;
 }
+.top-button {
+    text-align: right;
+    padding-bottom: 20px;
+}

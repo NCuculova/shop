@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="$hide()">&times;</button>
+    <h4 class="modal-title">Upload product images</h4>
+</div>
+<div class="modal-body">
+    <div ng-repeat="image in images">
+        <button type="button" class="btn btn-default btn-xs" ng-click="deleteImage(image.id)">
+            <i class="fa fa-fw fa-times"></i>
+        </button>
+        <img ng-src="/api/product_images/image/{{image.id}}"
+             alt="flat image" class="img-thumbnail"></div>
+    <div class="form-group">
+        <label for="image">File input </label>
+        <input type="file" id="image" ngf-select ngf-change="onFileSelect($files)">
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" ng-click="$hide()">
+        <i class="fa fa-fw fa-times"></i> Cancel
+    </button>
+</div>

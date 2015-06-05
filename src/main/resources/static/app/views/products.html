@@ -1,0 +1,45 @@
+<div class="page-header">
+    <h1><i class="fa fa-glass"/> Products</h1>
+</div>
+<div class="top-button">
+    <button class="btn btn-primary" type="button" ng-click="addProduct()">
+        <i class="fa fa-fw fa-plus"></i> Add product
+    </button>
+</div>
+<table class="table table-condensed table-striped table-bordered">
+    <tr>
+        <th>Id</th>
+        <th>Category</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Discount</th>
+        <th>Date</th>
+        <th>isFeatured</th>
+        <th>addImages</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tr ng-repeat="p in products">
+        <td>{{p.id}}</td>
+        <td>{{p.category.name}}</td>
+        <td>{{p.name}}</td>
+        <td>{{p.description}}</td>
+        <td>{{p.price}}</td>
+        <td>{{p.quantity}}</td>
+        <td>{{p.discount}}</td>
+        <td>{{p.dateString}}</td>
+        <td>{{p.featured}}</td>
+        <td>
+            <button type="button" class="btn btn-default btn-xs" ng-click="addProductImages(p.id)">Add</button>
+        </td>
+        <td>
+            <button type="button" class="btn btn-default btn-xs" ng-click="editProduct(p.id)">Edit</button>
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger btn-xs" ng-click="deleteProduct(p.id)">Delete
+            </button>
+        </td>
+    </tr>
+</table>

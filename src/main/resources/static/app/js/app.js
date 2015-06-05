@@ -1,13 +1,9 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-var Shop = angular.module('shop', ['ngRoute']);
+var Shop = angular.module('shop', ['shop.dependencies', 'shop.services']);
 
-Shop.config(['$routeProvider',function($routeProvider){
-      $routeProvider.when('/', {
-          templateUrl: '/app/views/home.html'
-        }).when('/test', {
-          templateUrl: '/app/views/test.html'
-        });
-      }
-]);
+Shop.config([ '$routeProvider', '$httpProvider', '$locationProvider',
+		function($routeProvider, $httpProvider, $locationProvider) {
+		} ]);
+
