@@ -6,7 +6,11 @@
 
 Shop.config(['$routeProvider',function($routeProvider){
       $routeProvider.when('/', {
-          templateUrl: '/app/views/home.html'
+          templateUrl: '/app/views/category_products.html',
+          controller: 'HomeCtrl'
+        }).when('/category/:id/product', {
+          templateUrl: '/app/views/category_products.html',
+          controller: 'HomeCtrl'
         }).when('/products', {
           templateUrl: '/app/views/products.html',
           controller: 'ProductCtrl'

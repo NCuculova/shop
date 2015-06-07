@@ -18,6 +18,9 @@ public class ProductImage extends BaseEntity{
     @JsonIgnore
     private Blob image;
 
+    @JsonIgnore
+    private Blob thumbnail;
+
     private String fileName;
 
     private String fileType;
@@ -36,6 +39,14 @@ public class ProductImage extends BaseEntity{
 
     public void setImage(Blob image) {
         this.image = image;
+    }
+
+    public Blob getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(Blob thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public String getFileName() {

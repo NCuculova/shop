@@ -33,3 +33,14 @@ ShopServices.factory('ProductImage', [ '$resource', function($resource) {
 	});
 }
 ]);
+
+ShopServices.factory('Product', [ '$resource', function($resource) {
+	return $resource('/api/product/:id', {},{
+		'getProductsByCategoryId':{
+			method : 'GET',
+			isArray: true,
+			url : '/api/product/category/:id'
+		}
+	});
+}
+]);

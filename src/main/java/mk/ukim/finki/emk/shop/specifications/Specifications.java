@@ -1,5 +1,6 @@
 package mk.ukim.finki.emk.shop.specifications;
 
+import mk.ukim.finki.emk.shop.model.Category;
 import mk.ukim.finki.emk.shop.model.Product;
 import mk.ukim.finki.emk.shop.model.ProductImage;
 import org.springframework.data.jpa.domain.Specification;
@@ -21,6 +22,17 @@ public class Specifications {
                                          CriteriaQuery<?> criteriaQuery,
                                          CriteriaBuilder criteriaBuilder) {
                 return criteriaBuilder.equal(root.<Product>get("product").<Long>get("id"), id);
+            }
+        };
+    }
+
+    public static Specification<Product> category(final Long id) {
+        return new Specification<Product>() {
+            @Override
+            public Predicate toPredicate(Root<Product> root,
+                                         CriteriaQuery<?> criteriaQuery,
+                                         CriteriaBuilder criteriaBuilder) {
+                return criteriaBuilder.equal(root.<Category>get("category").<Long>get("id"), id);
             }
         };
     }

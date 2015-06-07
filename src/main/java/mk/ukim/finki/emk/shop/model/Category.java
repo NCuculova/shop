@@ -1,5 +1,7 @@
 package mk.ukim.finki.emk.shop.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -11,6 +13,7 @@ import javax.persistence.Table;
 @Table(name="categories")
 public class Category extends BaseEntity{
 
+    @NotEmpty
     private String name;
 
     private String description;

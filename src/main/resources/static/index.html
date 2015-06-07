@@ -12,7 +12,7 @@
     <title>eShop</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/bower_components/bootstrap/dist/css/bootstrap.css  " rel="stylesheet">
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="/bower_components/angular-ui-select/dist/select.min.css">
     <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.min.css">
 
@@ -29,7 +29,7 @@
 <body ng-app="shop" ng-cloak class="ng-cloak">
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
+    <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
@@ -53,9 +53,20 @@
     </div>
 </nav>
 
-<div class="container">
-    <div ng-view autoscroll="true">
-        <h1 class="page-header">Content here</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 sidebar" ng-controller="CategoriesCtrl">
+            <h3>Categories</h3>
+            <ul class="nav nav-sidebar">
+                <li ng-repeat="c in categories"><a href="#/category/{{c.id}}/product">{{c.name}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-10 col-md-offset-2 main">
+            <div ng-view autoscroll="true" class="container">
+                <h1 class="page-header">Content here</h1>
+            </div>
+        </div>
     </div>
     <hr>
 
@@ -83,6 +94,7 @@
 <script src="/app/js/controllers.js"></script>
 <script src="/app/js/router.js"></script>
 <script src="/app/js/dependencies.js"></script>
+<script src="/app/js/directives.js"></script>
 <script src="/app/js/services.js"></script>
 </body>
 </html>

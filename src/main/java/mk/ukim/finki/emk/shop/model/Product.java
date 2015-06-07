@@ -1,10 +1,12 @@
 package mk.ukim.finki.emk.shop.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -20,13 +22,15 @@ public class Product extends BaseEntity {
         dateInserted = new Date();
     }
 
+    @NotEmpty
     private String name;
 
     private String description;
 
+    @NotNull
     private Double price;
 
-    private Integer quantity;
+    private Integer quantity = 1;
 
     private Double discount;
 
@@ -38,6 +42,7 @@ public class Product extends BaseEntity {
     private boolean featured;
 
     @ManyToOne
+    @NotNull
     private Category category;
 
     public String getName() {

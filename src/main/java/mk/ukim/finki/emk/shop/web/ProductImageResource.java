@@ -5,6 +5,7 @@ import mk.ukim.finki.emk.shop.model.ProductImage;
 import mk.ukim.finki.emk.shop.service.ProductImageService;
 import mk.ukim.finki.emk.shop.service.ProductService;
 import mk.ukim.finki.emk.shop.specifications.Specifications;
+import net.coobird.thumbnailator.Thumbnails;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
 import javax.validation.Valid;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -74,6 +78,9 @@ public class ProductImageResource {
         ProductImage productImage = new ProductImage();
         productImage.setProduct(product);
         productImage.setImage(new SerialBlob(file.getBytes()));
+        ByteArrayOutputStream ostream = new ByteArrayOutputStream();
+        Thumbnails.of(file.getInputStream()).size(200, 200).toOutputStream(ostream);
+        productImage.setThumbnail(new SerialBlob(ostream.toByteArray()));
         productImage.setFileName(file.getOriginalFilename());
         productImage.setFileType(file.getContentType());
         productImageService.save(productImage);
@@ -94,7 +101,25 @@ public class ProductImageResource {
     public String downloadImageById(@PathVariable("id") Long id,
                                     HttpServletResponse response) {
         ProductImage productImage = productImageService.findOne(id);
-        writeFileToResponse(productImage, response);
+        writeFileToResponse(productImage,productImage.getImage(), response);
+        return null;
+    }
+
+    @RequestMapping("/thumbnail/{id}")
+    public String downloadThumbnailById(@PathVariable("id") Long id,
+                                    HttpServletResponse response) {
+        ProductImage productImage = productImageService.findOne(id);
+        writeFileToResponse(productImage,productImage.getThumbnail(), response);
+        return null;
+    }
+
+    @RequestMapping("/product_thumbnail/{id}")
+    public String downloadFirstThumbnailById(@PathVariable("id") Long id,
+                                        HttpServletResponse response) {
+       List<ProductImage> images = productImageService.findAll(Specifications.product(id));
+       if(images.size()!= 0){
+           writeFileToResponse(images.get(0),images.get(0).getThumbnail(), response);
+       }
         return null;
     }
 
@@ -103,13 +128,13 @@ public class ProductImageResource {
      * Input: ProductImage
      * Output: none
      */
-    private void writeFileToResponse(ProductImage productImage,
+    private void writeFileToResponse(ProductImage productImage, Blob image,
                                      HttpServletResponse response) {
         try {
             OutputStream out = response.getOutputStream();
             response.setContentType(productImage.getFileType());
-            response.setContentLength((int) productImage.getImage().length());
-            IOUtils.copy(productImage.getImage().getBinaryStream(), out);
+            response.setContentLength((int)image.length());
+            IOUtils.copy(image.getBinaryStream(), out);
             out.flush();
             out.close();
         } catch (IOException e) {

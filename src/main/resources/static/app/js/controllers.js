@@ -23,7 +23,7 @@ Shop.controller('ProductCtrl', ['$scope', '$modal', 'Upload', 'crudService','Pro
 
 		$scope.addProduct = function(){
 			$scope.product = {
-				quantity : 0
+				quantity : 1
 			};
 			editProductDialog.show();
 		};
@@ -125,5 +125,25 @@ Shop.controller('CategoryCtrl', ['$scope', '$modal', 'crudService',
               contentTemplate : '/app/forms/editCategory.html',
             	show : false
          });
+  }
+]);
+
+Shop.controller('HomeCtrl', ['$scope', '$routeParams', 'crudService', 'Product',
+  function($scope, $routeParams, crudService, Product) {
+
+  	var category = crudService('category');
+		var categoryId = $routeParams.id;
+		if(categoryId != null){
+		$scope.products  = Product.getProductsByCategoryId({
+			id : categoryId
+		});
+		}
+  }
+]);
+
+Shop.controller('CategoriesCtrl', ['$scope', 'crudService',
+  function($scope, crudService) {
+  	var category = crudService('category');
+		$scope.categories = category.query();
   }
 ]);

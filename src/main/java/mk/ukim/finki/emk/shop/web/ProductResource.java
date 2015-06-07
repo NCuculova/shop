@@ -2,7 +2,9 @@ package mk.ukim.finki.emk.shop.web;
 
 import mk.ukim.finki.emk.shop.model.Product;
 import mk.ukim.finki.emk.shop.service.ProductService;
+import mk.ukim.finki.emk.shop.specifications.Specifications;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,19 +31,26 @@ public class ProductResource {
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public List<Product> getAll() {
-        List<Product> productList =productService
+        List<Product> productList = productService
                 .findAll();
         return productList;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
     public Product getProduct(@PathVariable Long id,
-                               HttpServletResponse response) {
+                              HttpServletResponse response) {
         Product product = productService.findOne(id);
         if (product == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
         return product;
+    }
+
+    @RequestMapping(value = "/category/{id}", method = RequestMethod.GET, produces = "application/json")
+    public List<Product> getProductsByCategoryId(@PathVariable Long id,
+                                           HttpServletResponse response) {
+        List<Product> products = productService.findAll(Specifications.category(id));
+        return products;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
