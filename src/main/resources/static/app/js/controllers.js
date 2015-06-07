@@ -128,8 +128,8 @@ Shop.controller('CategoryCtrl', ['$scope', '$modal', 'crudService',
   }
 ]);
 
-Shop.controller('ProductsIndexCtrl', ['$scope', '$routeParams', 'crudService', 'Product',
-  function($scope, $routeParams, crudService, Product) {
+Shop.controller('ProductsIndexCtrl', ['$scope', '$routeParams', '$modal', 'crudService', 'Product',
+  function($scope, $routeParams, $modal, crudService, Product) {
 
   	var product = crudService('product');
 		var categoryId = $routeParams.id;
@@ -140,6 +140,25 @@ Shop.controller('ProductsIndexCtrl', ['$scope', '$routeParams', 'crudService', '
 		}else{
 			$scope.products = product.query();
 		}
+
+		 var shoppingCartDialog = $modal({
+            	scope : $scope,
+              template : '/app/templates/modal-form.tpl.html',
+              contentTemplate : '/app/forms/cart_items.html',
+            	show : false
+         });
+
+		$scope.addToCart = function(p){
+				$scope.product = p;
+				$scope.quantity = 1;
+				shoppingCartDialog.show();
+		};
+
+		$scope.addToCartItems = function(){
+    			$scope.product = p;
+    			$scope.quantity = 1;
+    };
+
   }
 ]);
 

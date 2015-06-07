@@ -1,0 +1,41 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Your cart</h3>
+    </div>
+    <div class="panel-body">
+        <h3>{{ product.name }}</h3>
+
+        <form class="form" ng-submit="addToCartItems()">
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label for="unit_price">Price per unit</label>
+                    <input type="number" value="{{ product.price }}" class="form-control" id="unit_price" readonly>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="quantity">Quantity</label>
+                    <input type="number" min="1" class="form-control" id="quantity" ng-model="quantity">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="price">Price</label>
+                    <input type="number" value="{{ product.price * quantity}}" class="form-control" id="price" readonly>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-default">Add</button>
+        </form>
+    </div>
+    <!-- Table -->
+    <table class="table">
+        <tr>
+            <th>Product</th>
+            <th>Price per unit</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        <tr ng-repeat="i in items">
+            <td>{{ i.product.name }}</td>
+            <td>{{ i.product.price }}</td>
+            <td>{{ i.quantity }}</td>
+            <td>{{ i.price }}</td>
+        </tr>
+    </table>
+</div>

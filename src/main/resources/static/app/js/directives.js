@@ -5,7 +5,8 @@ ShopDirectives.directive('productItem',[
    return {
      restrict: 'E',
      scope: {
-       product: '='
+       product: '=',
+       addToCart: '='
      },
      templateUrl: '/app/directives/product.html'
 }}]

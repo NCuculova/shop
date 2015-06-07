@@ -1,7 +1,7 @@
 package mk.ukim.finki.emk.shop.web;
 
-import mk.ukim.finki.emk.shop.model.Category;
-import mk.ukim.finki.emk.shop.service.CategoryService;
+import mk.ukim.finki.emk.shop.model.User;
+import mk.ukim.finki.emk.shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,39 +15,39 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/api/category")
-public class CategoryResource {
+@RequestMapping("/api/user")
+public class UserResource {
 
     @Autowired
-    private CategoryService categoryService;
+    private UserService userService;
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-    public Category create(@RequestBody @Valid Category entity,
-                        HttpServletRequest request, HttpServletResponse response) {
-        categoryService.save(entity);
+    public User create(@RequestBody @Valid User entity,
+                       HttpServletRequest request, HttpServletResponse response) {
+        userService.save(entity);
         return entity;
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    public List<Category> getAll() {
-        List<Category> categoryList =categoryService
+    public List<User> getAll() {
+        List<User> users = userService
                 .findAll();
-        return categoryList;
+        return users;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-    public Category getCategory(@PathVariable Long id,
-                              HttpServletResponse response) {
-        Category category = categoryService.findOne(id);
-        if (category == null) {
+    public User getUser(@PathVariable Long id,
+                        HttpServletResponse response) {
+        User user = userService.findOne(id);
+        if (user == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
-        return category;
+        return user;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public void delete(@PathVariable Long id, HttpServletRequest request,
                        HttpServletResponse response) {
-        categoryService.delete(id);
+        userService.delete(id);
     }
 }

@@ -1,7 +1,7 @@
 package mk.ukim.finki.emk.shop.web;
 
-import mk.ukim.finki.emk.shop.model.Category;
-import mk.ukim.finki.emk.shop.service.CategoryService;
+import mk.ukim.finki.emk.shop.model.ShoppingCartItem;
+import mk.ukim.finki.emk.shop.service.ShoppingCartItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,39 +15,39 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/api/category")
-public class CategoryResource {
+@RequestMapping("/api/cart")
+public class ShoppingCartResource {
 
     @Autowired
-    private CategoryService categoryService;
+    private ShoppingCartItemService shoppingCartService;
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-    public Category create(@RequestBody @Valid Category entity,
+    public ShoppingCartItem create(@RequestBody @Valid ShoppingCartItem entity,
                         HttpServletRequest request, HttpServletResponse response) {
-        categoryService.save(entity);
+        shoppingCartService.save(entity);
         return entity;
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    public List<Category> getAll() {
-        List<Category> categoryList =categoryService
+    public List<ShoppingCartItem> getAll() {
+        List<ShoppingCartItem> cartList =shoppingCartService
                 .findAll();
-        return categoryList;
+        return cartList;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-    public Category getCategory(@PathVariable Long id,
+    public ShoppingCartItem getCategory(@PathVariable Long id,
                               HttpServletResponse response) {
-        Category category = categoryService.findOne(id);
-        if (category == null) {
+        ShoppingCartItem cart = shoppingCartService.findOne(id);
+        if (cart == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
-        return category;
+        return cart;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public void delete(@PathVariable Long id, HttpServletRequest request,
                        HttpServletResponse response) {
-        categoryService.delete(id);
+        shoppingCartService.delete(id);
     }
 }
