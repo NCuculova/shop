@@ -1,10 +1,18 @@
 <div class="panel panel-default product-panel">
     <div class="panel-body">
-        <img ng-src="/api/product_images/product_thumbnail/{{product.id}}" class="img-thumbnail"/>
+        <div class="row">
+            <div class="col-md-6">
+                <img ng-src="/api/product_images/product_thumbnail/{{product.id}}" class="img-thumbnail"/>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
     </div>
     <div class="panel-footer">
-        <h4><a href="#/">{{ product.name }}</a></h4>
-        <p>{{ product.description | limitTo: 50 }}{{product.description.length > 50 ? '...' : ''}}</p>
+        <h4><a href="#/products/{{product.id}}">{{ product.name }}</a></h4>
+        <h5>{{ product.price | number: 2}} MKD</h5>
+       <!-- <p>{{ product.description | limitTo: 50 }}{{product.description.length > 50 ? '...' : ''}}</p>-->
     </div>
 </div>
 

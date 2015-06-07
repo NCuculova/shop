@@ -1,0 +1,11 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <img ng-repeat="img in images" ng-src="/api/product_images/thumbnail/{{img.id}}" class="img-thumbnail"/>
+        <h4>{{ product.name }}</h4>
+        <h5>{{ product.price | number: 2}} MKD</h5>
+        <p>{{ product.description }}</p>
+        <!-- <p>{{ product.description | limitTo: 50 }}{{product.description.length > 50 ? '...' : ''}}</p>-->
+    </div>
+</div>
+
+

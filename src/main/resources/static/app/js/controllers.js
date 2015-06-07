@@ -128,15 +128,17 @@ Shop.controller('CategoryCtrl', ['$scope', '$modal', 'crudService',
   }
 ]);
 
-Shop.controller('HomeCtrl', ['$scope', '$routeParams', 'crudService', 'Product',
+Shop.controller('ProductsIndexCtrl', ['$scope', '$routeParams', 'crudService', 'Product',
   function($scope, $routeParams, crudService, Product) {
 
-  	var category = crudService('category');
+  	var product = crudService('product');
 		var categoryId = $routeParams.id;
 		if(categoryId != null){
-		$scope.products  = Product.getProductsByCategoryId({
-			id : categoryId
+			$scope.products  = Product.getProductsByCategoryId({
+				id : categoryId
 		});
+		}else{
+			$scope.products = product.query();
 		}
   }
 ]);
@@ -145,5 +147,17 @@ Shop.controller('CategoriesCtrl', ['$scope', 'crudService',
   function($scope, crudService) {
   	var category = crudService('category');
 		$scope.categories = category.query();
+  }
+]);
+
+Shop.controller('ProductDetailsCtrl', ['$scope', '$routeParams', 'crudService', 'ProductImage',
+  function($scope, $routeParams, crudService, ProductImage) {
+  	var product = crudService('product');
+  	$scope.images = ProductImage.getImagesByProductId({
+  		id : $routeParams.id
+  	});
+		$scope.product = product.get({
+			id : $routeParams.id
+		});
   }
 ]);

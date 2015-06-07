@@ -64,6 +64,13 @@ body {
 .product-panel .panel-footer{
   height: 90px;
 }
+.product-panel .panel-body{
+  height: 220px;
+}
 .product-panel h4 {
   margin-top: 6px;
+}
+
+.panel-details{
+width: 300px;
 }
