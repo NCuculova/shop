@@ -128,8 +128,8 @@ Shop.controller('CategoryCtrl', ['$scope', '$modal', 'crudService',
   }
 ]);
 
-Shop.controller('ProductsIndexCtrl', ['$scope', '$routeParams', '$modal', 'crudService', 'Product',
-  function($scope, $routeParams, $modal, crudService, Product) {
+Shop.controller('ProductsIndexCtrl', ['$scope', '$routeParams', '$modal', 'crudService', 'Product', 'ProductImage',
+  function($scope, $routeParams, $modal, crudService, Product, ProductImage) {
 
   	var product = crudService('product');
 		var categoryId = $routeParams.id;
@@ -166,6 +166,17 @@ Shop.controller('CategoriesCtrl', ['$scope', 'crudService',
   function($scope, crudService) {
   	var category = crudService('category');
 		$scope.categories = category.query();
+  }
+]);
+
+Shop.controller('LangCtrl', ['$scope','$translate', 'crudService',
+  function($scope, $translate, crudService) {
+  	var language = crudService('language');
+    $scope.languages = language.query();
+
+    $scope.changeLang = function(lang){
+    	$translate.use(lang);
+    };
   }
 ]);
 

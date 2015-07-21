@@ -92,48 +92,51 @@ public class ProductImageResource {
         return productImageService.findAll(Specifications.product(id));
     }
 
-    /**
-     * Method for downloading image. Uses writeFileToResponse.
-     * Input: ID of an image
-     * Output: null
-     */
+
     @RequestMapping("/image/{id}")
     public String downloadImageById(@PathVariable("id") Long id,
                                     HttpServletResponse response) {
         ProductImage productImage = productImageService.findOne(id);
-        writeFileToResponse(productImage,productImage.getImage(), response);
+        writeFileToResponse(productImage, productImage.getImage(), response);
         return null;
     }
 
     @RequestMapping("/thumbnail/{id}")
     public String downloadThumbnailById(@PathVariable("id") Long id,
-                                    HttpServletResponse response) {
+                                        HttpServletResponse response) {
         ProductImage productImage = productImageService.findOne(id);
-        writeFileToResponse(productImage,productImage.getThumbnail(), response);
+        writeFileToResponse(productImage, productImage.getThumbnail(), response);
         return null;
     }
 
     @RequestMapping("/product_thumbnail/{id}")
     public String downloadFirstThumbnailById(@PathVariable("id") Long id,
-                                        HttpServletResponse response) {
-       List<ProductImage> images = productImageService.findAll(Specifications.product(id));
-       if(images.size()!= 0){
-           writeFileToResponse(images.get(0),images.get(0).getThumbnail(), response);
-       }
+                                             HttpServletResponse response) {
+        List<ProductImage> images = productImageService.findAll(Specifications.product(id));
+        if (images.size() != 0) {
+            writeFileToResponse(images.get(0), images.get(0).getThumbnail(), response);
+        }
         return null;
     }
 
-    /**
-     * Method that gets image in the server response
-     * Input: ProductImage
-     * Output: none
-     */
+
+    @RequestMapping("/first_image/{id}")
+    public String downloadFirstImageById(@PathVariable("id") Long id,
+                                             HttpServletResponse response) {
+        List<ProductImage> images = productImageService.findAll(Specifications.product(id));
+        if (images.size() != 0) {
+            writeFileToResponse(images.get(0), images.get(0).getImage(), response);
+        }
+        return null;
+    }
+
+
     private void writeFileToResponse(ProductImage productImage, Blob image,
                                      HttpServletResponse response) {
         try {
             OutputStream out = response.getOutputStream();
             response.setContentType(productImage.getFileType());
-            response.setContentLength((int)image.length());
+            response.setContentLength((int) image.length());
             IOUtils.copy(image.getBinaryStream(), out);
             out.flush();
             out.close();

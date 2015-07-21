@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1><i class="fa fa-glass"/> Products</h1>
+    <h1 translate="generic.products"><i class="fa fa-glass"/></h1>
 </div>
 <div class="top-button">
     <button class="btn btn-primary" type="button" ng-click="addProduct()">
@@ -9,17 +9,17 @@
 <table class="table table-condensed table-striped table-bordered">
     <tr>
         <th>Id</th>
-        <th>Category</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Discount</th>
-        <th>Date</th>
-        <th>isFeatured</th>
-        <th>addImages</th>
-        <th>Edit</th>
-        <th>Delete</th>
+        <th translate="generic.category"></th>
+        <th translate="generic.name"></th>
+        <th translate="generic.description"></th>
+        <th translate="generic.price"></th>
+        <th translate="generic.quantity"></th>
+        <th translate="generic.discount"></th>
+        <th translate="generic.date"></th>
+        <th translate="action.isFeatured"></th>
+        <th translate="action.addImages"></th>
+        <th translate="action.edit"></th>
+        <th translate="action.delete"></th>
     </tr>
     <tr ng-repeat="p in products">
         <td>{{p.id}}</td>
@@ -32,13 +32,13 @@
         <td>{{p.dateString}}</td>
         <td>{{p.featured}}</td>
         <td>
-            <button type="button" class="btn btn-default btn-xs" ng-click="addProductImages(p.id)">Add</button>
+            <button type="button" class="btn btn-default btn-xs" ng-click="addProductImages(p.id)" translate="action.add"></button>
         </td>
         <td>
-            <button type="button" class="btn btn-default btn-xs" ng-click="editProduct(p.id)">Edit</button>
+            <button type="button" class="btn btn-default btn-xs" ng-click="editProduct(p.id)" translate="action.edit"></button>
         </td>
         <td>
-            <button type="button" class="btn btn-danger btn-xs" ng-click="deleteProduct(p.id)">Delete
+            <button type="button" class="btn btn-danger btn-xs" ng-click="deleteProduct(p.id)" translate="action.delete">
             </button>
         </td>
     </tr>

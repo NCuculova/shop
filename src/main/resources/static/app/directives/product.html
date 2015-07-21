@@ -2,10 +2,12 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-md-6">
-                <img ng-src="/api/product_images/product_thumbnail/{{product.id}}" class="img-thumbnail"/>
+
+                <a href="/api/product_images/first_image/{{product.id}}">
+                    <img ng-src="/api/product_images/product_thumbnail/{{product.id}}" class="img-thumbnail"/>
+                </a>
             </div>
             <div class="col-md-6">
-
             </div>
         </div>
     </div>
@@ -16,8 +18,9 @@
                 <h5>{{ product.price | number: 2}} MKD</h5>
             </div>
             <div class="col-md-4">
-                <button ng-click="addToCart(product)" class="btn btn-default btn-sm" type="button"><i
-                        class="fa fa-shopping-cart"></i> Add to cart
+                <button ng-click="addToCart(product)" class="btn btn-default btn-sm" type="button"
+                        translate="action.addToCart"><i
+                        class="fa fa-shopping-cart"></i>
                 </button>
             </div>
         </div>
