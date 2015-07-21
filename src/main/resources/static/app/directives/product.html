@@ -2,8 +2,7 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-md-6">
-
-                <a href="/api/product_images/first_image/{{product.id}}">
+                <a ng-click="showImage(product.id)" href="">
                     <img ng-src="/api/product_images/product_thumbnail/{{product.id}}" class="img-thumbnail"/>
                 </a>
             </div>

@@ -141,7 +141,7 @@ Shop.controller('ProductsIndexCtrl', ['$scope', '$routeParams', '$modal', 'crudS
 			$scope.products = product.query();
 		}
 
-		 var shoppingCartDialog = $modal({
+		var shoppingCartDialog = $modal({
             	scope : $scope,
               template : '/app/templates/modal-form.tpl.html',
               contentTemplate : '/app/forms/cart_items.html',
