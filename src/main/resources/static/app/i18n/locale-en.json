@@ -1,0 +1,22 @@
+{
+        "generic": {
+                "products": "Products",
+                "category": "Category",
+                "name": "Name",
+                "description": "Description",
+                "price": "Price",
+                "quantity": "Quantity",
+                "discount": "Discount",
+                "date": "Date",
+                "categories": "Categories",
+                "language": "Language"
+        },
+        "action": {
+                "edit": "Edit",
+                "add": "Add",
+                "delete": "Delete",
+                "isFeatured": "Featured",
+                "addImages": "Add image",
+                "addToCart": "Add to cart"
+        }
+}

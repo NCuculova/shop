@@ -1,0 +1,22 @@
+{
+  "generic": {
+    "products": "Продукти",
+    "category": "Категорија",
+    "name": "Име",
+    "description": "Опис",
+    "price": "Цена",
+    "quantity": "Количина",
+    "discount": "Попуст",
+    "date": "Датум",
+    "categories": "Категории",
+    "language": "Јазик"
+  },
+  "action": {
+    "edit": "Промени",
+    "add": "Додади",
+    "delete": "Избриши",
+    "isFeatured": "На промоција",
+    "addImages": "Додади слика",
+    "addToCart": "Додади во кошничка"
+  }
+}
