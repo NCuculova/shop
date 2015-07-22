@@ -49,7 +49,7 @@ ShopServices.factory('ShoppingCartItem', [ '$resource', function($resource) {
 	return $resource('/api/cart/:id', {},{
 		'addToCart':{
 			method : 'POST',
-			url : '/api/cart/items/:id',
+			url : '/api/cart/items',
 			params: {
                 id: '@id',
                 quantity: '@quantity'

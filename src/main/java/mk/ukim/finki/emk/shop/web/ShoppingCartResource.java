@@ -1,6 +1,8 @@
 package mk.ukim.finki.emk.shop.web;
 
+import mk.ukim.finki.emk.shop.model.Product;
 import mk.ukim.finki.emk.shop.model.ShoppingCartItem;
+import mk.ukim.finki.emk.shop.service.ProductService;
 import mk.ukim.finki.emk.shop.service.ShoppingCartItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,8 +11,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.net.CookieStore;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Nadica-PC on 6/4/2015.
@@ -22,6 +24,9 @@ public class ShoppingCartResource {
 
     @Autowired
     private ShoppingCartItemService shoppingCartService;
+
+    @Autowired
+    private ProductService productService;
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public ShoppingCartItem create(@RequestBody @Valid ShoppingCartItem entity,
@@ -53,14 +58,34 @@ public class ShoppingCartResource {
         shoppingCartService.delete(id);
     }
 
-    @RequestMapping(value ="items/{id}", method = RequestMethod.POST, produces = "application/json")
-    public void addToCart(@RequestParam Long id, @RequestParam Double quantity, HttpServletRequest request,
+    @RequestMapping(value = "/items", method = RequestMethod.POST, produces = "application/json")
+    public ShoppingCartItem addToCart(@RequestParam Long id, @RequestParam Double quantity, HttpServletRequest request,
                                       HttpServletResponse response) {
-        System.out.println("--------->>>Getting cookies...");
-        Cookie [] cookies = request.getCookies();
+        Product product = productService.findOne(id);
 
-        for (Cookie cookie : cookies){
-            System.out.println("Cookies FOUND:" + cookie.getName());
+        Cookie[] cookies = request.getCookies();
+        String guid = null;
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                System.out.println("Cookies FOUND:" + cookie.getName());
+                if (cookie.getName().equals("token_guid")) {
+                    guid = cookie.getValue();
+                }
+            }
+        } else {
+            Cookie tokenGuid = new Cookie("token_guid", UUID.randomUUID().toString());
+            guid = tokenGuid.getValue();
+            response.addCookie(tokenGuid);
         }
+
+        ShoppingCartItem cartItem = new ShoppingCartItem();
+        cartItem.setToken(guid);
+        cartItem.setProduct(product);
+        cartItem.setQuantity(quantity);
+
+        shoppingCartService.save(cartItem);
+
+        return cartItem;
     }
 }
