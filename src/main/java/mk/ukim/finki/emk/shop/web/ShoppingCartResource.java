@@ -72,13 +72,17 @@ public class ShoppingCartResource {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("token_guid")) {
                     guid = cookie.getValue();
+                    System.out.println("GUID:" + guid);
                     tokenFound = true;
                 }
             }
         }
         if (!tokenFound) {
+            System.out.println("Not FOuND");
             Cookie tokenGuid = new Cookie("token_guid", UUID.randomUUID().toString());
             guid = tokenGuid.getValue();
+            tokenGuid.setDomain(request.getServerName());
+            tokenGuid.setPath(request.getContextPath());
             response.addCookie(tokenGuid);
         }
 
