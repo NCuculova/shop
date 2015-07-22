@@ -158,7 +158,7 @@ Shop.controller('ProductsIndexCtrl', ['$scope', '$routeParams', '$modal', 'crudS
 		 console.log("add to cart...");
 			ShoppingCartItem.addToCart({
 				id : $scope.product.id,
-				quantity: $scope.quantity }, function(){
+				quantity: $scope.product.quantity }, function(){
 				});
     };
 
