@@ -56,7 +56,9 @@ public class ShoppingCartResource {
     @RequestMapping(value ="items/{id}", method = RequestMethod.POST, produces = "application/json")
     public void addToCart(@RequestParam Long id, @RequestParam Double quantity, HttpServletRequest request,
                                       HttpServletResponse response) {
+        System.out.println("--------->>>Getting cookies...");
         Cookie [] cookies = request.getCookies();
+
         for (Cookie cookie : cookies){
             System.out.println("Cookies FOUND:" + cookie.getName());
         }

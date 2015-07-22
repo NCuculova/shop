@@ -5,7 +5,7 @@
     <div class="panel-body">
         <h3>{{ product.name }}</h3>
 
-        <form class="form" ng-submit="addToCartItems()">
+        <form class="form">
             <div class="row">
                 <div class="form-group col-md-4">
                     <label for="unit_price">Price per unit</label>
@@ -20,7 +20,7 @@
                     <input type="number" value="{{ product.price * quantity}}" class="form-control" id="price" readonly>
                 </div>
             </div>
-            <button type="submit" class="btn btn-default">Add</button>
+            <button type="submit" class="btn btn-default" ng-click="addToCartItems()">Add</button>
         </form>
     </div>
     <!-- Table -->
