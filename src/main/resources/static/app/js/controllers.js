@@ -128,8 +128,8 @@ Shop.controller('CategoryCtrl', ['$scope', '$modal', 'crudService',
   }
 ]);
 
-Shop.controller('ProductsIndexCtrl', ['$scope', '$routeParams', '$modal', 'crudService', 'Product', 'ProductImage',
-  function($scope, $routeParams, $modal, crudService, Product, ProductImage) {
+Shop.controller('ProductsIndexCtrl', ['$scope', '$routeParams', '$modal', 'crudService', 'Product', 'ProductImage', 'ShoppingCartItem',
+  function($scope, $routeParams, $modal, crudService, Product, ProductImage, ShoppingCartItem) {
 
   	var product = crudService('product');
 		var categoryId = $routeParams.id;
@@ -155,8 +155,12 @@ Shop.controller('ProductsIndexCtrl', ['$scope', '$routeParams', '$modal', 'crudS
 		};
 
 		$scope.addToCartItems = function(){
-    			$scope.product = p;
-    			$scope.quantity = 1;
+		 console.log("add to cart...");
+			ShoppingCartItem.addToCartItem({
+				id : $scope.product.id,
+				quantity: $scope.quantity, function(){
+				}
+			});
     };
 
   }

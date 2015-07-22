@@ -12,15 +12,16 @@ ShopDirectives.directive('productItem',[
      controller: function($scope, $modal){
         var imageViewDialog = $modal({
                         	scope : $scope,
-                          template : '/app/templates/modal-form.tpl.html',
-                          contentTemplate : '/app/forms/product_image.html',
+                          template : '/app/templates/modal-image.tpl.html',
+                          contentTemplate :'/app/forms/product_image.html',
                         	show : false
              });
 
-        $scope.showImage = function(p){
-            $scope.product = p;
+        $scope.showImage = function(productId){
+            $scope.productId = productId;
             imageViewDialog.show();
         };
+
      }
 }}]
 );

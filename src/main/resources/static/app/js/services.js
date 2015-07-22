@@ -44,3 +44,17 @@ ShopServices.factory('Product', [ '$resource', function($resource) {
 	});
 }
 ]);
+
+ShopServices.factory('ShoppingCartItem', [ '$resource', function($resource) {
+	return $resource('/api/cart/:id', {},{
+		'addToCart':{
+			method : 'POST',
+			url : '/api/cart/items/:id',
+			params: {
+                id: '@id',
+                quantity: '@quantity'
+              }
+		}
+	});
+}
+]);
