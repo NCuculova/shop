@@ -54,6 +54,10 @@ ShopServices.factory('ShoppingCartItem', [ '$resource', function($resource) {
                 id: '@id',
                 quantity: '@quantity'
               }
+		},
+		'getCart':{
+			method: 'GET',
+			url: '/api/cart/get_cart'
 		}
 	});
 }

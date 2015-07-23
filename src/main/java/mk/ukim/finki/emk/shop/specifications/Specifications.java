@@ -48,4 +48,15 @@ public class Specifications {
             }
         };
     }
+
+    public static Specification<ShoppingCartItem> token(final String guid) {
+        return new Specification<ShoppingCartItem>() {
+            @Override
+            public Predicate toPredicate(Root<ShoppingCartItem> root,
+                                         CriteriaQuery<?> criteriaQuery,
+                                         CriteriaBuilder criteriaBuilder) {
+                return criteriaBuilder.equal(root.<String>get("token"), guid);
+            }
+        };
+    }
 }
