@@ -3,6 +3,7 @@ package mk.ukim.finki.emk.shop.specifications;
 import mk.ukim.finki.emk.shop.model.Category;
 import mk.ukim.finki.emk.shop.model.Product;
 import mk.ukim.finki.emk.shop.model.ProductImage;
+import mk.ukim.finki.emk.shop.model.ShoppingCartItem;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -33,6 +34,17 @@ public class Specifications {
                                          CriteriaQuery<?> criteriaQuery,
                                          CriteriaBuilder criteriaBuilder) {
                 return criteriaBuilder.equal(root.<Category>get("category").<Long>get("id"), id);
+            }
+        };
+    }
+
+    public static Specification<ShoppingCartItem> productItem(final Long id) {
+        return new Specification<ShoppingCartItem>() {
+            @Override
+            public Predicate toPredicate(Root<ShoppingCartItem> root,
+                                         CriteriaQuery<?> criteriaQuery,
+                                         CriteriaBuilder criteriaBuilder) {
+                return criteriaBuilder.equal(root.<Product>get("product").<Long>get("id"), id);
             }
         };
     }

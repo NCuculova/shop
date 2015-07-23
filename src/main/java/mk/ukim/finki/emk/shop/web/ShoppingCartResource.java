@@ -4,6 +4,7 @@ import mk.ukim.finki.emk.shop.model.Product;
 import mk.ukim.finki.emk.shop.model.ShoppingCartItem;
 import mk.ukim.finki.emk.shop.service.ProductService;
 import mk.ukim.finki.emk.shop.service.ShoppingCartItemService;
+import mk.ukim.finki.emk.shop.specifications.Specifications;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,7 +73,6 @@ public class ShoppingCartResource {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("token_guid")) {
                     guid = cookie.getValue();
-                    System.out.println("GUID:" + guid);
                     tokenFound = true;
                 }
             }
@@ -81,18 +81,22 @@ public class ShoppingCartResource {
             System.out.println("Not FOuND");
             Cookie tokenGuid = new Cookie("token_guid", UUID.randomUUID().toString());
             guid = tokenGuid.getValue();
-            tokenGuid.setDomain(request.getServerName());
-            tokenGuid.setPath(request.getContextPath());
+            tokenGuid.setPath(request.getContextPath() + "/");
+            tokenGuid.setMaxAge(30 * 24 * 60 * 60);
             response.addCookie(tokenGuid);
         }
 
-
         ShoppingCartItem cartItem = new ShoppingCartItem();
-        cartItem.setToken(guid);
-        cartItem.setProduct(product);
-        cartItem.setQuantity(quantity);
-
-        shoppingCartService.save(cartItem);
+        if (shoppingCartService.findOne(Specifications.productItem(id)) != null) {
+            cartItem = shoppingCartService.findOne(Specifications.productItem(id));
+            cartItem.setQuantity(quantity);
+            shoppingCartService.save(cartItem);
+        } else {
+            cartItem.setToken(guid);
+            cartItem.setProduct(product);
+            cartItem.setQuantity(quantity);
+            shoppingCartService.save(cartItem);
+        }
 
         return cartItem;
     }
