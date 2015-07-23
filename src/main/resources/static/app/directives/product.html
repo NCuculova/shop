@@ -17,9 +17,8 @@
                 <h5>{{ product.price | number: 2}} MKD</h5>
             </div>
             <div class="col-md-4">
-                <button ng-click="addToCart(product)" class="btn btn-default btn-sm" type="button"
-                        translate="action.addToCart"><i
-                        class="fa fa-shopping-cart"></i>
+                <button ng-click="addToCart(product)" class="btn btn-default btn-sm" type="button"><i
+                        class="fa fa-shopping-cart"></i>{{ "action.addToCart" | translate }}
                 </button>
             </div>
         </div>

@@ -9,7 +9,10 @@
                 "discount": "Discount",
                 "date": "Date",
                 "categories": "Categories",
-                "language": "Language"
+                "language": "Language",
+                "cart": "Your cart",
+                "product": "Product",
+                "image": "Image"
         },
         "action": {
                 "edit": "Edit",

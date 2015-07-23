@@ -9,7 +9,10 @@
     "discount": "Попуст",
     "date": "Датум",
     "categories": "Категории",
-    "language": "Јазик"
+    "language": "Јазик",
+    "cart": "Вашата кошничка",
+    "product": "Продукт",
+    "image": "Слика"
   },
   "action": {
     "edit": "Промени",

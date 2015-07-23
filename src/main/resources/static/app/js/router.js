@@ -20,6 +20,9 @@ Shop.config(['$routeProvider',function($routeProvider){
         }).when('/categories', {
           templateUrl: '/app/views/categories.html',
           controller: 'CategoryCtrl'
+        }).when('/cart', {
+          templateUrl: '/app/views/cart_details.html',
+          controller: 'CartCtrl'
         });
       }
 ]);

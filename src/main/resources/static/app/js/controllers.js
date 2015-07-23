@@ -148,9 +148,12 @@ Shop.controller('ProductsIndexCtrl', ['$scope', '$routeParams', '$modal', 'crudS
             	show : false
          });
 
+		var cart = crudService('cart');
+
 		$scope.addToCart = function(p){
 				$scope.product = p;
 				$scope.quantity = 1;
+				$scope.items = cart.query();
 				shoppingCartDialog.show();
 		};
 
@@ -159,6 +162,7 @@ Shop.controller('ProductsIndexCtrl', ['$scope', '$routeParams', '$modal', 'crudS
 			ShoppingCartItem.addToCart({
 				id : $scope.product.id,
 				quantity: $scope.product.quantity }, function(){
+			  $scope.items = cart.query();
 				});
     };
 
@@ -180,6 +184,20 @@ Shop.controller('LangCtrl', ['$scope','$translate', 'crudService',
     $scope.changeLang = function(lang){
     	$translate.use(lang);
     };
+  }
+]);
+
+Shop.controller('CartCtrl', ['$scope', 'crudService', 'ShoppingCartItem',
+  function($scope, crudService, ShoppingCartItem) {
+
+  	var cart = crudService('cart');
+		$scope.items = cart.query();
+
+		$scope.deleteItem = function(item){
+			cart.remove({ id : item },function () {
+        $scope.items = cart.query();
+      });
+		};
   }
 ]);
 

@@ -74,11 +74,12 @@ public class ShoppingCartResource {
                 if (cookie.getName().equals("token_guid")) {
                     guid = cookie.getValue();
                     tokenFound = true;
+                    //cookie duration is extended for another month
+                    response.addCookie(cookie);
                 }
             }
         }
         if (!tokenFound) {
-            System.out.println("Not FOuND");
             Cookie tokenGuid = new Cookie("token_guid", UUID.randomUUID().toString());
             guid = tokenGuid.getValue();
             tokenGuid.setPath(request.getContextPath() + "/");
@@ -86,17 +87,16 @@ public class ShoppingCartResource {
             response.addCookie(tokenGuid);
         }
 
-        ShoppingCartItem cartItem = new ShoppingCartItem();
-        if (shoppingCartService.findOne(Specifications.productItem(id)) != null) {
-            cartItem = shoppingCartService.findOne(Specifications.productItem(id));
-            cartItem.setQuantity(quantity);
-            shoppingCartService.save(cartItem);
+        ShoppingCartItem cartItem = shoppingCartService.findOne(Specifications.productItem(id));
+        if (cartItem != null) {
+            cartItem.setQuantity(quantity + cartItem.getQuantity());
         } else {
+            cartItem = new ShoppingCartItem();
             cartItem.setToken(guid);
             cartItem.setProduct(product);
             cartItem.setQuantity(quantity);
-            shoppingCartService.save(cartItem);
         }
+        shoppingCartService.save(cartItem);
 
         return cartItem;
     }
