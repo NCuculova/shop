@@ -5,15 +5,27 @@
     <tr>
         <th translate="generic.product"></th>
         <th translate="generic.image"></th>
+        <th translate="generic.itemPrice"></th>
         <th translate="generic.quantity"></th>
+        <th translate="generic.price"></th>
         <th translate="action.delete"></th>
     </tr>
     <tr ng-repeat="i in items">
         <td>{{i.product.name}}</td>
         <td><img ng-src="/api/product_images/product_thumbnail/{{i.product.id}}" class="img-thumbnail"></td>
+        <td class="text-right">{{i.price | price}}</td>
         <td>{{i.quantity}}</td>
+        <td class="text-right">{{(i.quantity * i.price) | price}}</td>
         <td>
             <button type="button" class="btn btn-danger btn-xs" ng-click="deleteItem(i.id)" translate="action.delete">
+            </button>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">Total</td>
+        <td class="text-right">{{total | price}}</td>
+        <td>
+            <button type="button" class="btn btn-danger btn-xs" ng-click="clearCart()" translate="action.clearCart">
             </button>
         </td>
     </tr>

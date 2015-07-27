@@ -17,46 +17,19 @@ import javax.persistence.criteria.Root;
 public class Specifications {
 
     public static Specification<ProductImage> product(final Long id) {
-        return new Specification<ProductImage>() {
-            @Override
-            public Predicate toPredicate(Root<ProductImage> root,
-                                         CriteriaQuery<?> criteriaQuery,
-                                         CriteriaBuilder criteriaBuilder) {
-                return criteriaBuilder.equal(root.<Product>get("product").<Long>get("id"), id);
-            }
-        };
+        return (root, criteriaQuery, cb) -> cb.equal(root.<Product>get("product").<Long>get("id"), id);
     }
 
     public static Specification<Product> category(final Long id) {
-        return new Specification<Product>() {
-            @Override
-            public Predicate toPredicate(Root<Product> root,
-                                         CriteriaQuery<?> criteriaQuery,
-                                         CriteriaBuilder criteriaBuilder) {
-                return criteriaBuilder.equal(root.<Category>get("category").<Long>get("id"), id);
-            }
-        };
+        return (root, criteriaQuery, cb) -> cb.equal(root.<Category>get("category").<Long>get("id"), id);
     }
 
-    public static Specification<ShoppingCartItem> productItem(final Long id) {
-        return new Specification<ShoppingCartItem>() {
-            @Override
-            public Predicate toPredicate(Root<ShoppingCartItem> root,
-                                         CriteriaQuery<?> criteriaQuery,
-                                         CriteriaBuilder criteriaBuilder) {
-                return criteriaBuilder.equal(root.<Product>get("product").<Long>get("id"), id);
-            }
-        };
+    public static Specification<ShoppingCartItem> productItem(final Long id, final String token) {
+        return (root, criteriaQuery, cb) -> cb.and(cb.equal(root.<Product>get("product").<Long>get("id"), id),
+                cb.equal(root.<String>get("token"), token));
     }
 
     public static Specification<ShoppingCartItem> token(final String guid) {
-        return new Specification<ShoppingCartItem>() {
-            @Override
-            public Predicate toPredicate(Root<ShoppingCartItem> root,
-                                         CriteriaQuery<?> criteriaQuery,
-                                         CriteriaBuilder criteriaBuilder) {
-                return criteriaBuilder.equal(root.<String>get("token"), guid);
-            }
-        };
+        return (root, criteriaQuery, cb) -> cb.equal(root.<String>get("token"), guid);
     }
 }

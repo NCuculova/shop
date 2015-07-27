@@ -51,8 +51,8 @@
                         <li><a ng-repeat="l in languages" ng-click="changeLang(l.name)">{{l.name}}</a></li>
                     </ul>
                 </div>
-                <div class="form-group">
-                    <a class="btn btn-default" href="#/cart"><i class="fa fa-fw fa-cart-arrow-down fa-lg"></i> My cart( )</a>
+                <div class="form-group" ng-controller="ItemsCtrl">
+                    <a class="btn btn-default" href="#/cart"><i class="fa fa-fw fa-cart-arrow-down fa-lg"></i> My cart({{$root.total}})</a>
                 </div>
                 <button type="submit" class="btn btn-success">Sign in</button>
             </form>
@@ -108,5 +108,6 @@
 <script src="/app/js/dependencies.js"></script>
 <script src="/app/js/directives.js"></script>
 <script src="/app/js/services.js"></script>
+<script src="/app/js/filters.js"></script>
 </body>
 </html>

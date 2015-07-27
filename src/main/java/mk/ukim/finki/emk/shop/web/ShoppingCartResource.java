@@ -59,7 +59,7 @@ public class ShoppingCartResource {
         shoppingCartService.delete(id);
     }
 
-    public String tokenUtil(HttpServletRequest request, HttpServletResponse response){
+    private String tokenUtil(HttpServletRequest request, HttpServletResponse response){
 
         Cookie[] cookies = request.getCookies();
         String guid = null;
@@ -94,7 +94,7 @@ public class ShoppingCartResource {
 
         String guid = tokenUtil(request, response);
 
-        ShoppingCartItem cartItem = shoppingCartService.findOne(Specifications.productItem(id));
+        ShoppingCartItem cartItem = shoppingCartService.findOne(Specifications.productItem(id, guid));
         if (cartItem != null) {
             cartItem.setQuantity(quantity + cartItem.getQuantity());
         } else {
@@ -110,11 +110,15 @@ public class ShoppingCartResource {
 
     @RequestMapping(value = "/get_cart", method = RequestMethod.GET, produces = "application/json")
     public List<ShoppingCartItem> getCart(HttpServletRequest request, HttpServletResponse response) {
-
         String guid = tokenUtil(request, response);
-
         List<ShoppingCartItem> cartItems = shoppingCartService.findAll(Specifications.token(guid));
-
         return cartItems;
     }
+
+    @RequestMapping(value = "/clear", method = RequestMethod.POST, produces = "application/json")
+    public void clearCart(HttpServletRequest request, HttpServletResponse response) {
+        String token = tokenUtil(request, response);
+        shoppingCartService.clearCart(token);
+    }
+
 }

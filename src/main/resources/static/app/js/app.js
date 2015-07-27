@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-var Shop = angular.module('shop', ['shop.dependencies', 'shop.services', 'shop.directives']);
+var Shop = angular.module('shop', ['shop.dependencies', 'shop.services', 'shop.directives', 'shop.filters']);
 
 Shop.config([ '$routeProvider', '$httpProvider', '$locationProvider', '$translateProvider',
 		function($routeProvider, $httpProvider, $locationProvider, $translateProvider) {

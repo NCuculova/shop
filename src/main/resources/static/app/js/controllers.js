@@ -128,8 +128,16 @@ Shop.controller('CategoryCtrl', ['$scope', '$modal', 'crudService',
   }
 ]);
 
-Shop.controller('ProductsIndexCtrl', ['$scope', '$routeParams', '$modal', 'crudService', 'Product', 'ProductImage', 'ShoppingCartItem',
-  function($scope, $routeParams, $modal, crudService, Product, ProductImage, ShoppingCartItem) {
+Shop.controller('ProductsIndexCtrl', ['$scope', '$routeParams', '$rootScope', '$modal', 'crudService', 'Product', 'ProductImage', 'ShoppingCartItem',
+  function($scope, $routeParams, $rootScope, $modal, crudService, Product, ProductImage, ShoppingCartItem) {
+
+		var sum = function(){
+      $scope.total=0;
+      $scope.items.map(function(item){
+      	$scope.total += item.price;
+      });
+      $rootScope.total = $scope.items.length;
+    };
 
   	var product = crudService('product');
 		var categoryId = $routeParams.id;
@@ -148,10 +156,14 @@ Shop.controller('ProductsIndexCtrl', ['$scope', '$routeParams', '$modal', 'crudS
             	show : false
          });
 
+		var loadItems =  function(){
+     $scope.items = ShoppingCartItem.getCart(sum);
+    };
+
 		$scope.addToCart = function(p){
 				$scope.product = p;
 				$scope.quantity = 1;
-				$scope.items = ShoppingCartItem.getCart();
+				loadItems();
 				shoppingCartDialog.show();
 		};
 
@@ -159,11 +171,8 @@ Shop.controller('ProductsIndexCtrl', ['$scope', '$routeParams', '$modal', 'crudS
 		 console.log("add to cart...");
 			ShoppingCartItem.addToCart({
 				id : $scope.product.id,
-				quantity: $scope.product.quantity }, function(){
-			  	$scope.items = ShoppingCartItem.getCart();
-				});
+				quantity: $scope.product.quantity },loadItems);
     };
-
   }
 ]);
 
@@ -185,16 +194,38 @@ Shop.controller('LangCtrl', ['$scope','$translate', 'crudService',
   }
 ]);
 
-Shop.controller('CartCtrl', ['$scope', 'crudService', 'ShoppingCartItem',
-  function($scope, crudService, ShoppingCartItem) {
+Shop.controller('CartCtrl', ['$scope', '$rootScope', 'crudService', 'ShoppingCartItem',
+  function($scope, $rootScope, crudService, ShoppingCartItem) {
 
-		$scope.items = ShoppingCartItem.getCart();
+		var loadItems =  function(){
+         $scope.items = ShoppingCartItem.getCart(sum);
+        };
+
+    var sum = function(){
+         $scope.total=0;
+         $scope.items.map(function(item){
+           $scope.total += item.price;
+         });
+         $rootScope.total = $scope.items.length;
+    };
+
+		loadItems();
+
+		var cart = crudService('cart');
 
 		$scope.deleteItem = function(item){
-			cart.remove({ id : item },function () {
-        $scope.items = ShoppingCartItem.getCart();
-      });
+			cart.remove({ id : item }, loadItems);
 		};
+
+		 $scope.clearCart = function(){
+     ShoppingCartItem.clearCart(loadItems);
+    };
+  }
+]);
+
+Shop.controller('ItemsCtrl', ['$scope', '$rootScope',
+  function($scope, $rootScope) {
+
   }
 ]);
 

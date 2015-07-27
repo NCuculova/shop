@@ -5,7 +5,7 @@
     <div class="panel-body">
         <h3>{{ product.name }}</h3>
 
-        <form class="form">
+        <form class="form" novalidate>
             <div class="row">
                 <div class="form-group col-md-4">
                     <label for="unit_price">Price per unit</label>
@@ -35,7 +35,11 @@
             <td>{{ i.product.name }}</td>
             <td>{{ i.product.price }}</td>
             <td>{{ i.quantity }}</td>
-            <td>{{ i.price }}</td>
+            <td class="text-right">{{ i.price | price}}</td>
+        </tr>
+        <tr>
+            <td colspan="3">Total</td>
+            <td class="text-right">{{total | price}}</td>
         </tr>
     </table>
 </div>

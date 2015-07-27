@@ -7,4 +7,5 @@ import mk.ukim.finki.emk.shop.model.ShoppingCartItem;
  */
 public interface ShoppingCartItemService extends BaseEntityCrudService<ShoppingCartItem>{
 
+    public void clearCart(String token);
 }

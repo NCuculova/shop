@@ -57,7 +57,12 @@ ShopServices.factory('ShoppingCartItem', [ '$resource', function($resource) {
 		},
 		'getCart':{
 			method: 'GET',
-			url: '/api/cart/get_cart'
+			url: '/api/cart/get_cart',
+			isArray: true
+		},
+		'clearCart':{
+		 method: 'POST',
+		 url: '/api/cart/clear'
 		}
 	});
 }
