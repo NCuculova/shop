@@ -4,7 +4,7 @@
                 "category": "Category",
                 "name": "Name",
                 "description": "Description",
-                "price": "Price",
+                "total": "Total",
                 "quantity": "Quantity",
                 "discount": "Discount",
                 "date": "Date",
@@ -12,7 +12,8 @@
                 "language": "Language",
                 "cart": "Your cart",
                 "product": "Product",
-                "image": "Image"
+                "image": "Image",
+                "itemPrice": "Unit price"
         },
         "action": {
                 "edit": "Edit",
@@ -20,6 +21,8 @@
                 "delete": "Delete",
                 "isFeatured": "Featured",
                 "addImages": "Add image",
-                "addToCart": "Add to cart"
+                "addToCart": "Add to cart",
+                "clearCart": "Clear cart",
+                "checkout": "Checkout"
         }
 }

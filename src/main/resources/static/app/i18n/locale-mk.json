@@ -4,7 +4,7 @@
     "category": "Категорија",
     "name": "Име",
     "description": "Опис",
-    "price": "Цена",
+    "total": "Вкупно",
     "quantity": "Количина",
     "discount": "Попуст",
     "date": "Датум",
@@ -12,7 +12,8 @@
     "language": "Јазик",
     "cart": "Вашата кошничка",
     "product": "Продукт",
-    "image": "Слика"
+    "image": "Слика",
+    "itemPrice": "Поединечна цена"
   },
   "action": {
     "edit": "Промени",
@@ -20,6 +21,8 @@
     "delete": "Избриши",
     "isFeatured": "На промоција",
     "addImages": "Додади слика",
-    "addToCart": "Додади во кошничка"
+    "addToCart": "Додади во кошничка",
+    "clearCart": "Испразни кошничка",
+    "checkout": "Плаќање"
   }
 }

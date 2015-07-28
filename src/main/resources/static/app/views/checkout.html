@@ -1,0 +1,75 @@
+<div class="page-header">
+    <h1 translate="action.checkout"><i class="fa fa-fw fa-check"/></h1>
+</div>
+<table class="table table-condensed table-striped table-bordered">
+    <tr>
+        <th translate="generic.product"></th>
+        <th translate="generic.itemPrice"></th>
+        <th translate="generic.quantity"></th>
+        <th translate="generic.total"></th>
+    </tr>
+    <tr ng-repeat="i in items">
+        <td>{{i.product.name}}</td>
+        <td class="text-right">{{i.price | price}}</td>
+        <td>{{i.quantity}}</td>
+        <td class="text-right">{{(i.quantity * i.price) | price}}</td>
+    </tr>
+    <tr>
+        <td colspan="3">Total</td>
+        <td class="text-right">{{total | price}}</td>
+
+    </tr>
+</table>
+<div class="panel-group" ng-model="panels.activePanel" role="tablist" bs-collapse >
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab">
+            <h4 class="panel-title">
+                <a bs-collapse-toggle>
+                    Step 1: Checkout options
+                </a>
+            </h4>
+        </div>
+        <div class="panel-collapse" role="tabpanel" bs-collapse-target>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab">
+            <h4 class="panel-title">
+                <a bs-collapse-toggle>
+                    Step 2: Account & Billing Details
+                </a>
+            </h4>
+        </div>
+        <div class="panel-collapse" role="tabpanel" bs-collapse-target>
+            <div class="panel-body">
+                <h1>hello</h1>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab">
+            <h4 class="panel-title">
+                <a bs-collapse-toggle>
+                    Step 3: Confirm order
+                </a>
+            </h4>
+        </div>
+        <div class="panel-collapse" role="tabpanel" bs-collapse-target>
+            <div class="panel-body">
+                <h1>hello</h1>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

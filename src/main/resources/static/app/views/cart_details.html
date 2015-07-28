@@ -1,13 +1,18 @@
 <div class="page-header">
     <h1 translate="generic.cart"><i class="fa fa-glass"/></h1>
 </div>
+<div class="top-button">
+    <a class="btn btn-primary" href="#/checkout">
+        <i class="fa fa-fw fa-check"></i> {{ "action.checkout" | translate}}
+    </a>
+</div>
 <table class="table table-condensed table-striped table-bordered">
     <tr>
         <th translate="generic.product"></th>
         <th translate="generic.image"></th>
         <th translate="generic.itemPrice"></th>
         <th translate="generic.quantity"></th>
-        <th translate="generic.price"></th>
+        <th translate="generic.total"></th>
         <th translate="action.delete"></th>
     </tr>
     <tr ng-repeat="i in items">

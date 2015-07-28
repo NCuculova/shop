@@ -23,6 +23,9 @@ Shop.config(['$routeProvider',function($routeProvider){
         }).when('/cart', {
           templateUrl: '/app/views/cart_details.html',
           controller: 'CartCtrl'
+        }).when('/checkout', {
+          templateUrl: '/app/views/checkout.html',
+          controller: "CheckoutCtrl"
         });
       }
 ]);
