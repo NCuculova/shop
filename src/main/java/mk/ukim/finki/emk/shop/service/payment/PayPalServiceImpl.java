@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by ristes on 6.5.15.
+ * Created by NADICA :) on 6.5.15.
  */
 @Service
 public class PaypalServiceImpl implements PaymentService {
@@ -44,22 +44,21 @@ public class PaypalServiceImpl implements PaymentService {
         List<Transaction> transactions = new ArrayList<Transaction>();
         int subTotal = 0;
         for (ShoppingCartItem item : items) {
-            subTotal += (int)item.getPrice();
+            subTotal += (int) item.getPrice();
         }
         // ###Details
         // Let's you specify details of a payment amount.
         Details details = new Details();
         details.setSubtotal(subTotal + "");
-        details.setTax((int)(subTotal * 0.18) + "");
+        details.setTax((int) (subTotal * 0.18) + "");
 
         // ###Amount
         // Let's you specify a payment amount.
         Amount amount = new Amount();
         amount.setCurrency("USD");
         // Total must be equal to sum of shipping, tax and subtotal.
-        amount.setTotal((int)(subTotal * 1.18) + "");
+        amount.setTotal((int) (subTotal * 1.18) + "");
         amount.setDetails(details);
-        System.out.println("TOTAL:----------> " + subTotal );
         // ###Transaction
         // A transaction defines the contract of a
         // payment - what is the payment for and who
@@ -70,65 +69,63 @@ public class PaypalServiceImpl implements PaymentService {
         transaction.setDescription("eShop checkout");
         transactions.add(transaction);
 
-    // ###FundingInstrument
-    // A resource representing a Payeer's funding instrument.
-    // Use a Payer ID (A unique identifier of the payer generated
-    // and provided by the facilitator. This is required when
-    // creating or using a tokenized funding instrument)
-    // and the `CreditCardDetails`
-    FundingInstrument fundingInstrument = new FundingInstrument();
-    fundingInstrument.setCreditCard(creditCard);
+        // ###FundingInstrument
+        // A resource representing a Payeer's funding instrument.
+        // Use a Payer ID (A unique identifier of the payer generated
+        // and provided by the facilitator. This is required when
+        // creating or using a tokenized funding instrument)
+        // and the `CreditCardDetails`
+        FundingInstrument fundingInstrument = new FundingInstrument();
+        fundingInstrument.setCreditCard(creditCard);
 
 
-    // The Payment creation API requires a list of
-    // FundingInstrument; add the created `FundingInstrument`
-    // to a List
-    List<FundingInstrument> fundingInstrumentList = new ArrayList<FundingInstrument>();
-    fundingInstrumentList.add(fundingInstrument);
+        // The Payment creation API requires a list of
+        // FundingInstrument; add the created `FundingInstrument`
+        // to a List
+        List<FundingInstrument> fundingInstrumentList = new ArrayList<FundingInstrument>();
+        fundingInstrumentList.add(fundingInstrument);
 
-    // ###Payer
-    // A resource representing a Payer that funds a payment
-    // Use the List of `FundingInstrument` and the Payment Method
-    // as 'credit_card'
-    Payer payer = new Payer();
-    payer.setFundingInstruments(fundingInstrumentList);
-    payer.setPaymentMethod("credit_card");
+        // ###Payer
+        // A resource representing a Payer that funds a payment
+        // Use the List of `FundingInstrument` and the Payment Method
+        // as 'credit_card'
+        Payer payer = new Payer();
+        payer.setFundingInstruments(fundingInstrumentList);
+        payer.setPaymentMethod("credit_card");
 
-    // ###Payment
-    // A Payment Resource; create one using
-    // the above types and intent as 'sale'
-    Payment payment = new Payment();
-    payment.setIntent("sale");
-    payment.setPayer(payer);
-    payment.setTransactions(transactions);
-    Payment createdPayment = null;
-    try
+        // ###Payment
+        // A Payment Resource; create one using
+        // the above types and intent as 'sale'
+        Payment payment = new Payment();
+        payment.setIntent("sale");
+        payment.setPayer(payer);
+        payment.setTransactions(transactions);
+        Payment createdPayment = null;
+        try
 
-    {
+        {
 
-        // Use this variant if you want to pass in a request id
-        // that is meaningful in your application, ideally
-        // a order id.
+            // Use this variant if you want to pass in a request id
+            // that is meaningful in your application, ideally
+            // a order id.
       /*
        * String requestId = Long.toString(System.nanoTime(); APIContext
 			 * apiContext = new APIContext(accessToken, requestId ));
 			 */
 
-        // Create a payment by posting to the APIService
-        // using a valid AccessToken
-        // The return object contains the status;
-        createdPayment = payment.create(apiContext);
+            // Create a payment by posting to the APIService
+            // using a valid AccessToken
+            // The return object contains the status;
+            createdPayment = payment.create(apiContext);
 
+        } catch (
+                PayPalRESTException e
+                )
+
+        {
+            e.printStackTrace();
+        }
+
+        return createdPayment;
     }
-
-    catch(
-    PayPalRESTException e
-    )
-
-    {
-        e.printStackTrace();
-    }
-
-    return createdPayment;
-}
 }
