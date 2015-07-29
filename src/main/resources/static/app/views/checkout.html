@@ -34,7 +34,17 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Panel heading without title</div>
+                            <div class="panel-heading">Proceed without login</div>
+                            <div class="panel-body">
+                                <button class="btn btn-default" ng-click="goNextStep(1)">
+                                    Continue
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Create account</div>
                             <div class="panel-body">
                                 Panel content
                             </div>
@@ -42,15 +52,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Panel heading without title</div>
-                            <div class="panel-body">
-                                Panel content
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">Panel heading without title</div>
+                            <div class="panel-heading">Login</div>
                             <div class="panel-body">
                                 Panel content
                             </div>
@@ -65,13 +67,67 @@
         <div class="panel-heading" role="tab">
             <h4 class="panel-title">
                 <a bs-collapse-toggle>
-                    Step 2: Account & Billing Details
+                    Step 2: Billing Details
                 </a>
             </h4>
         </div>
         <div class="panel-collapse" role="tabpanel" bs-collapse-target>
             <div class="panel-body">
-                <h1>hello</h1>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label translate="generic.address"></label>
+                            <input type="text" class="form-control" placeholder="Address" ng-model="transaction.address">
+                        </div>
+                        <div class="form-group">
+                            <label translate="generic.city"></label>
+                            <input type="text" class="form-control" placeholder="City" ng-model="transaction.city">
+                        </div>
+                        <div class="form-group">
+                            <label translate="generic.country"></label>
+                            <input type="text" class="form-control" placeholder="Country" ng-model="transaction.country">
+                        </div>
+                        <div class="form-group">
+                            <label translate="generic.postalCode">Post code</label>
+                            <input type="text" class="form-control" placeholder="Post code" ng-model="transaction.postalCode">
+                        </div>
+                        <button type="button" class="btn btn-default" ng-click="goNextStep(2)">Continue</button>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label translate="generic.cvv"></label>
+                            <input type="text" class="form-control" placeholder="Cvv" ng-model="transaction.cvv">
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label translate="generic.expireMonth"></label>
+                                <select class="form-control" ng-model="transaction.expireMonth">
+                                    <option ng-repeat="i in getMonths() track by $index" value="{{ $index + 1 }}">{{$index + 1}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label translate="generic.expireYear"></label>
+                                <select class="form-control" ng-model="transaction.expireYear">
+                                    <option ng-repeat="i in getYears()" value="{{i}}">{{ i }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label translate="generic.cardNumber"></label>
+                            <input type="text" class="form-control" placeholder="Card number">
+                        </div>
+                        <div class="form-group" ng-model="transaction.cardType">
+                        <label class="radio-inline" style="margin-top: 22px;">
+                            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="visa">
+                            <img src="/app/imgs/visa_logo.gif"></label>
+                        <label class="radio-inline" style="margin-top: 22px;">
+                            <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="mastercard">
+                            <img src="/app/imgs/mastercard_logo.gif">
+                        </label>
+                        </div>
+                    </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -85,7 +141,25 @@
         </div>
         <div class="panel-collapse" role="tabpanel" bs-collapse-target>
             <div class="panel-body">
-                <h1>hello</h1>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-4"><label>Subtotal:</label></div>
+                            <div class="col-md-8 text-right"><label>{{total | price}}</label></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4"><label>DDV(18%):</label></div>
+                            <div class="col-md-8 text-right"><label>{{(int)(total * 0.18) | price}}</label></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4"><label>Total:</label></div>
+                            <div class="col-md-8 text-right"><label> {{(total * 1.18) | price}}</label></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-md-offset-5">
+                        <button type="button" class="btn btn-default" ng-click="proceedOrder()">Confirm</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

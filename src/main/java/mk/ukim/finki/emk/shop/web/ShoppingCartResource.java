@@ -59,7 +59,7 @@ public class ShoppingCartResource {
         shoppingCartService.delete(id);
     }
 
-    private String tokenUtil(HttpServletRequest request, HttpServletResponse response){
+    public static String tokenUtil(HttpServletRequest request, HttpServletResponse response){
 
         Cookie[] cookies = request.getCookies();
         String guid = null;

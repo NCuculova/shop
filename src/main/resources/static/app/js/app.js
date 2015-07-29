@@ -15,5 +15,9 @@ Shop.config([ '$routeProvider', '$httpProvider', '$locationProvider', '$translat
           $translateProvider.preferredLanguage('en');
           // Enable escaping of HTML
           $translateProvider.useSanitizeValueStrategy('escaped');
-		} ]);
+		}]).run(['$rootScope', 'ShoppingCartItem', function($rootScope, ShoppingCartItem){
+            var items = ShoppingCartItem.getCart(function(){
+              $rootScope.total = items.length;
+            });
+		}]);
 

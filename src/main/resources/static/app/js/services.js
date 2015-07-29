@@ -31,8 +31,7 @@ ShopServices.factory('ProductImage', [ '$resource', function($resource) {
 			url : '/api/product_images/product/:id'
 		}
 	});
-}
-]);
+}]);
 
 ShopServices.factory('Product', [ '$resource', function($resource) {
 	return $resource('/api/product/:id', {},{
@@ -42,8 +41,7 @@ ShopServices.factory('Product', [ '$resource', function($resource) {
 			url : '/api/product/category/:id'
 		}
 	});
-}
-]);
+}]);
 
 ShopServices.factory('ShoppingCartItem', [ '$resource', function($resource) {
 	return $resource('/api/cart/:id', {},{
@@ -65,5 +63,13 @@ ShopServices.factory('ShoppingCartItem', [ '$resource', function($resource) {
 		 url: '/api/cart/clear'
 		}
 	});
-}
-]);
+}]);
+
+ShopServices.factory('TransactionDetails', [ '$resource', function($resource) {
+	return $resource('/api/payment', {},{
+		'payment':{
+			method : 'POST',
+			url : '/api/payment/test'
+    	}
+    	});
+}]);

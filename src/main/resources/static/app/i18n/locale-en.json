@@ -13,7 +13,15 @@
                 "cart": "Your cart",
                 "product": "Product",
                 "image": "Image",
-                "itemPrice": "Unit price"
+                "itemPrice": "Unit price",
+                "address": "Address",
+                "city": "City",
+                "expireDate": "Expire date",
+                "cvv": "CVV",
+                "cardNumber": "Card number",
+                "postalCode": "Post code",
+                "state": "State",
+                "countryCode": "Country code"
         },
         "action": {
                 "edit": "Edit",

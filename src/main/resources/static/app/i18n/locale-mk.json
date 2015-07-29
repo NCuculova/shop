@@ -13,7 +13,15 @@
     "cart": "Вашата кошничка",
     "product": "Продукт",
     "image": "Слика",
-    "itemPrice": "Поединечна цена"
+    "itemPrice": "Поединечна цена",
+    "address": "Адреса",
+    "city": "Град",
+    "expireDate": "Expire date",
+    "cvv": "CVV",
+    "cardNumber": "Број на картичка",
+    "postalCode": "Поштенски број",
+    "state": "Држава",
+    "countryCode": "Географски код"
   },
   "action": {
     "edit": "Промени",

@@ -15,7 +15,7 @@
     <link href="/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="/bower_components/angular-ui-select/dist/select.min.css">
     <link rel="stylesheet" href="/bower_components/components-font-awesome/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="/bower_components/angular-motion/dist/angular-motion.min.css">
     <!-- Custom styles for this template -->
     <link href="/css/main.css" rel="stylesheet">
 
@@ -65,6 +65,7 @@
     <div class="row">
         <div class="col-md-2 sidebar" ng-controller="CategoriesCtrl">
             <a href="#/"><h3 translate="generic.categories"></h3></a>
+            Total: {{$root.total}}
             <ul class="nav nav-sidebar">
                 <li ng-repeat="c in categories"><a href="#/category/{{c.id}}/product">{{c.name}}</a>
                 </li>
@@ -102,7 +103,6 @@
 <script src="/bower_components/angular-translate/angular-translate.min.js"></script>
 <script src="/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
 <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
-<link rel="stylesheet" src="/bower_components/angular-motion/dist/angular-motion.min.css">
 
 <script src="/app/js/app.js"></script>
 <script src="/app/js/controllers.js"></script>
