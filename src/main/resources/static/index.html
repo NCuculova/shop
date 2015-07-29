@@ -65,7 +65,6 @@
     <div class="row">
         <div class="col-md-2 sidebar" ng-controller="CategoriesCtrl">
             <a href="#/"><h3 translate="generic.categories"></h3></a>
-            Total: {{$root.total}}
             <ul class="nav nav-sidebar">
                 <li ng-repeat="c in categories"><a href="#/category/{{c.id}}/product">{{c.name}}</a>
                 </li>

@@ -7,6 +7,10 @@ import java.util.Date;
  */
 public class TransactionDetails {
 
+    private String name;
+
+    private String surname;
+
     private String address;
 
     private String city;
@@ -25,20 +29,20 @@ public class TransactionDetails {
 
     private String cardType;
 
-    public int getExpireMonth() {
-        return expireMonth;
+    public String getName() {
+        return name;
     }
 
-    public void setExpireMonth(int expireMonth) {
-        this.expireMonth = expireMonth;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getExpireYear() {
-        return expireYear;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setExpireYear(int expireYear) {
-        this.expireYear = expireYear;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getAddress() {
@@ -85,8 +89,24 @@ public class TransactionDetails {
         return cvv;
     }
 
-    public void setCvv(String cvv) {
-        this.cvv = Integer.parseInt(cvv);
+    public void setCvv(int cvv) {
+        this.cvv = cvv;
+    }
+
+    public int getExpireMonth() {
+        return expireMonth;
+    }
+
+    public void setExpireMonth(int expireMonth) {
+        this.expireMonth = expireMonth;
+    }
+
+    public int getExpireYear() {
+        return expireYear;
+    }
+
+    public void setExpireYear(int expireYear) {
+        this.expireYear = expireYear;
     }
 
     public String getCardType() {

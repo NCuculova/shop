@@ -251,7 +251,7 @@ Shop.controller('CheckoutCtrl', ['$scope', '$rootScope', 'ShoppingCartItem', 'Tr
   var sum = function(){
       $scope.total=0;
       $scope.items.map(function(item){
-        $scope.total += item.price;
+        $scope.total += item.quantity * item.price;
       });
       $rootScope.total = $scope.items.length;
    };

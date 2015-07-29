@@ -35,6 +35,7 @@ public class PaymentResource {
     @RequestMapping(value = "/test", method = RequestMethod.POST, produces = "application/json")
     public Payment executePayment(@RequestBody TransactionDetails transactionDetails, HttpServletRequest request,
                                   HttpServletResponse response) {
+
         // ###Address
         // Base Address object used as shipping or billing
         // address in a payment. [Optional]
@@ -53,8 +54,8 @@ public class PaymentResource {
         creditCard.setCvv2(transactionDetails.getCvv());
         creditCard.setExpireMonth(transactionDetails.getExpireMonth());
         creditCard.setExpireYear(transactionDetails.getExpireYear());
-        //  creditCard.setFirstName("Joe");
-        // creditCard.setLastName("Shopper");
+        creditCard.setFirstName(transactionDetails.getName());
+        creditCard.setLastName(transactionDetails.getSurname());
         creditCard.setNumber(transactionDetails.getCardNumber());
         creditCard.setType(transactionDetails.getCardType());
 

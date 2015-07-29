@@ -57,7 +57,6 @@
                                 Panel content
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -67,7 +66,7 @@
         <div class="panel-heading" role="tab">
             <h4 class="panel-title">
                 <a bs-collapse-toggle>
-                    Step 2: Billing Details
+                    Step 2: Billing & Card details
                 </a>
             </h4>
         </div>
@@ -75,9 +74,22 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-6">
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label translate="generic.name"></label>
+                                <input type="text" class="form-control" placeholder="First name"
+                                       ng-model="transaction.name">
+                            </div>
+                            <div class="col-md-6">
+                                <label translate="generic.surname"></label>
+                                <input type="text" class="form-control" placeholder="Last name"
+                                       ng-model="transaction.surname">
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label translate="generic.address"></label>
-                            <input type="text" class="form-control" placeholder="Address" ng-model="transaction.address">
+                            <input type="text" class="form-control" placeholder="Address"
+                                   ng-model="transaction.address">
                         </div>
                         <div class="form-group">
                             <label translate="generic.city"></label>
@@ -85,13 +97,14 @@
                         </div>
                         <div class="form-group">
                             <label translate="generic.country"></label>
-                            <input type="text" class="form-control" placeholder="Country" ng-model="transaction.country">
+                            <input type="text" class="form-control" placeholder="Country"
+                                   ng-model="transaction.country">
                         </div>
                         <div class="form-group">
                             <label translate="generic.postalCode">Post code</label>
-                            <input type="text" class="form-control" placeholder="Post code" ng-model="transaction.postalCode">
+                            <input type="text" class="form-control" placeholder="Post code"
+                                   ng-model="transaction.postalCode">
                         </div>
-                        <button type="button" class="btn btn-default" ng-click="goNextStep(2)">Continue</button>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
@@ -102,7 +115,9 @@
                             <div class="col-md-6">
                                 <label translate="generic.expireMonth"></label>
                                 <select class="form-control" ng-model="transaction.expireMonth">
-                                    <option ng-repeat="i in getMonths() track by $index" value="{{ $index + 1 }}">{{$index + 1}}</option>
+                                    <option ng-repeat="i in getMonths() track by $index" value="{{ $index + 1 }}">
+                                        {{$index + 1}}
+                                    </option>
                                 </select>
                             </div>
                             <div class="col-md-6">
@@ -114,17 +129,20 @@
                         </div>
                         <div class="form-group">
                             <label translate="generic.cardNumber"></label>
-                            <input type="text" class="form-control" placeholder="Card number">
+                            <input type="text" class="form-control" placeholder="Card number" ng-model="transaction.cardNumber">
                         </div>
-                        <div class="form-group" ng-model="transaction.cardType">
-                        <label class="radio-inline" style="margin-top: 22px;">
-                            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="visa">
-                            <img src="/app/imgs/visa_logo.gif"></label>
-                        <label class="radio-inline" style="margin-top: 22px;">
-                            <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="mastercard">
-                            <img src="/app/imgs/mastercard_logo.gif">
-                        </label>
+                        <div class="form-group">
+                            <label class="radio-inline" style="margin-top: 22px;">
+                                <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="visa"
+                                       ng-model="transaction.cardType">
+                                <img src="/app/imgs/visa_logo.gif"></label>
+                            <label class="radio-inline" style="margin-top: 22px;">
+                                <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="mastercard"
+                                       ng-model="transaction.cardType">
+                                <img src="/app/imgs/mastercard_logo.gif">
+                            </label>
                         </div>
+                        <button type="button" style="margin-top:20px;" class="btn btn-default" ng-click="goNextStep(2)">Continue</button>
                     </div>
                     </form>
                 </div>
@@ -149,7 +167,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-4"><label>DDV(18%):</label></div>
-                            <div class="col-md-8 text-right"><label>{{(int)(total * 0.18) | price}}</label></div>
+                            <div class="col-md-8 text-right"><label>{{(total * 0.18) | price}}</label></div>
                         </div>
                         <div class="row">
                             <div class="col-md-4"><label>Total:</label></div>
