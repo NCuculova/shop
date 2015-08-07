@@ -6,13 +6,16 @@ import mk.ukim.finki.emk.shop.service.ProductService;
 import mk.ukim.finki.emk.shop.service.ShoppingCartItemService;
 import mk.ukim.finki.emk.shop.specifications.Specifications;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -88,7 +91,7 @@ public class ShoppingCartResource {
     }
 
     @RequestMapping(value = "/items", method = RequestMethod.POST, produces = "application/json")
-    public ShoppingCartItem addToCart(@RequestParam Long id, @RequestParam Double quantity, HttpServletRequest request,
+    public ShoppingCartItem addToCart(@RequestParam Long id, @RequestParam Integer quantity, HttpServletRequest request,
                                       HttpServletResponse response) {
         Product product = productService.findOne(id);
 
@@ -113,6 +116,14 @@ public class ShoppingCartResource {
         String guid = tokenUtil(request, response);
         List<ShoppingCartItem> cartItems = shoppingCartService.findAll(Specifications.token(guid));
         return cartItems;
+    }
+
+    @RequestMapping(value = "/count", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String,Integer> count(HttpServletRequest request, HttpServletResponse response) {
+        String guid = tokenUtil(request, response);
+        List<ShoppingCartItem> cartItems = shoppingCartService.findAll(Specifications.token(guid));
+
+        return Collections.singletonMap("total",cartItems.size());
     }
 
     @RequestMapping(value = "/clear", method = RequestMethod.POST, produces = "application/json")

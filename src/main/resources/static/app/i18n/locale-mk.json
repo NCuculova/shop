@@ -5,6 +5,8 @@
     "name": "Име",
     "description": "Опис",
     "total": "Вкупно",
+    "subTotal": "Меѓузбир",
+    "DDV": "DDV",
     "quantity": "Количина",
     "discount": "Попуст",
     "date": "Датум",
@@ -31,6 +33,8 @@
     "addImages": "Додади слика",
     "addToCart": "Додади во кошничка",
     "clearCart": "Испразни кошничка",
-    "checkout": "Плаќање"
+    "checkout": "Плаќање",
+    "payPalPayment": "Плати со PayPal",
+    "creditCardPayment": "Плати со кредитна картичка"
   }
 }

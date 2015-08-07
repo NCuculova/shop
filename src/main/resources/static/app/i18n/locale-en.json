@@ -5,6 +5,8 @@
                 "name": "Name",
                 "description": "Description",
                 "total": "Total",
+                "subTotal": "SubTotal",
+                "DDV": "DDV",
                 "quantity": "Quantity",
                 "discount": "Discount",
                 "date": "Date",
@@ -31,6 +33,8 @@
                 "addImages": "Add image",
                 "addToCart": "Add to cart",
                 "clearCart": "Clear cart",
-                "checkout": "Checkout"
+                "checkout": "Checkout",
+                "payPalPayment": "Pay with PayPal",
+                "creditCardPayment": "Pay with credit card"
         }
 }

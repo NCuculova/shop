@@ -1,0 +1,14 @@
+<div class="row bill-steps">
+    <div class="col-md-4">
+        <div class="circle" ng-class="{ 'completed-step' : step > 1, 'current-step' : step == 1}">1</div>
+        <h4>Checkout</h4>
+    </div>
+    <div class="col-md-4">
+        <div class="circle" ng-class="{ 'completed-step' : step > 2, 'current-step' : step == 2, 'next-step' : step < 2}">2</div>
+        <h4>Payment</h4>
+    </div>
+    <div class="col-md-4">
+        <div class="circle" ng-class="{ 'completed-step' : step > 3, 'current-step' : step == 3, 'next-step' : step < 3}">3</div>
+        <h4>Confirmation</h4>
+    </div>
+</div>

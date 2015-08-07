@@ -15,7 +15,7 @@ public class ShoppingCartItem extends BaseEntity {
     @ManyToOne
     private Product product;
 
-    private Double quantity;
+    private Integer quantity;
 
     private String token;
 
@@ -30,11 +30,11 @@ public class ShoppingCartItem extends BaseEntity {
         this.product = product;
     }
 
-    public Double getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Double quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 

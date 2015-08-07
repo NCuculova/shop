@@ -107,3 +107,55 @@ width: 300px;
   }
 }
 
+/*
+ * My custom classes
+ */
+
+
+.circle{
+  width: 50px;
+  height: 50px;
+ -webkit-border-radius: 25px;
+ -moz-border-radius: 25px;
+  border-radius: 25px;
+  border: 2px solid;
+  padding-top: 7px;
+  padding-left: 15px;
+  font-size: x-large;
+  color: #fff;
+  float: left;
+  font-weight: bold;
+}
+
+.completed-step{
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+
+.current-step{
+  background-color: #5bc0de;
+  border-color: #46b8da;
+}
+
+.next-step{
+  border-color: #777;
+  color: #777;
+}
+
+.bill-steps{
+
+}
+.bill-steps > div > h4{
+  margin-top: 16px;
+  margin-left: 6px;
+  float: left;
+}
+
+.ng-dirty.ng-invalid {
+	border-color: #fa787e;
+}
+
+.ng-dirty.ng-valid {
+	border-color: #78fa89;
+}
+

@@ -3,6 +3,7 @@ package mk.ukim.finki.emk.shop.service.payment;
 import com.paypal.api.payments.Address;
 import com.paypal.api.payments.CreditCard;
 import com.paypal.api.payments.Payment;
+import com.paypal.base.rest.PayPalRESTException;
 import mk.ukim.finki.emk.shop.model.ShoppingCartItem;
 
 import java.util.List;
@@ -12,7 +13,11 @@ import java.util.List;
  */
 public interface PaymentService {
 
-    public Payment executeCreditCardPayment(Address billingAddress,
-                                            CreditCard creditCard,
-                                            List<ShoppingCartItem> items);
+    Payment executeCreditCardPayment(Address billingAddress,
+                                     CreditCard creditCard,
+                                     List<ShoppingCartItem> items) throws PayPalRESTException;
+
+    Payment approvePayPalPayment(List<ShoppingCartItem> items);
+
+    Payment executePayPalPayment(String paymentId, String payerId);
 }

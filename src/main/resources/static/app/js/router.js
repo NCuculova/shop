@@ -26,6 +26,15 @@ Shop.config(['$routeProvider',function($routeProvider){
         }).when('/checkout', {
           templateUrl: '/app/views/checkout.html',
           controller: "CheckoutCtrl"
+        }).when('/credit-card', {
+          templateUrl: '/app/views/bill_card_details.html',
+          controller: "BillingCtrl"
+        }).when('/invoice/:transactionID', {
+          templateUrl: '/app/views/cart_invoice.html',
+          controller: "CartInvoiceCtrl"
+        }).when('/pay_pal', {
+          templateUrl: '/app/views/pay_pal.html',
+          controller: "PayPalCtrl"
         });
       }
 ]);

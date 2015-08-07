@@ -1,5 +1,6 @@
+<bill-steps step="1"></bill-steps>
 <div class="page-header">
-    <h1 translate="action.checkout"><i class="fa fa-fw fa-check"/></h1>
+    <h1><i class="fa fa-fw fa-check"/>{{ "action.checkout" | translate}}</h1>
 </div>
 <table class="table table-condensed table-striped table-bordered">
     <tr>
@@ -11,175 +12,24 @@
     <tr ng-repeat="i in items">
         <td>{{i.product.name}}</td>
         <td class="text-right">{{i.price | price}}</td>
-        <td>{{i.quantity}}</td>
+        <td class="text-center">{{i.quantity}}</td>
         <td class="text-right">{{(i.quantity * i.price) | price}}</td>
     </tr>
     <tr>
-        <td colspan="3">Total</td>
+        <td colspan="3" class="text-right"><strong translate="generic.subTotal"></strong></td>
         <td class="text-right">{{total | price}}</td>
-
+    </tr>
+    <tr>
+        <td colspan="3" class="text-right"><strong translate="generic.DDV"></strong></td>
+        <td class="text-right">{{(total * 0.18) | price}}</td>
+    </tr>
+    <tr>
+        <td colspan="3" class="text-right"><strong translate="generic.total"></strong></td>
+        <td class="text-right">{{(total * 1.18) | price}}</td>
     </tr>
 </table>
-<div class="panel-group" ng-model="panels.activePanel" role="tablist" bs-collapse>
-    <div class="panel panel-default">
-        <div class="panel-heading" role="tab">
-            <h4 class="panel-title">
-                <a bs-collapse-toggle>
-                    Step 1: Checkout options
-                </a>
-            </h4>
-        </div>
-        <div class="panel-collapse" role="tabpanel" bs-collapse-target>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">Proceed without login</div>
-                            <div class="panel-body">
-                                <button class="btn btn-default" ng-click="goNextStep(1)">
-                                    Continue
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">Create account</div>
-                            <div class="panel-body">
-                                Panel content
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">Login</div>
-                            <div class="panel-body">
-                                Panel content
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading" role="tab">
-            <h4 class="panel-title">
-                <a bs-collapse-toggle>
-                    Step 2: Billing & Card details
-                </a>
-            </h4>
-        </div>
-        <div class="panel-collapse" role="tabpanel" bs-collapse-target>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <label translate="generic.name"></label>
-                                <input type="text" class="form-control" placeholder="First name"
-                                       ng-model="transaction.name">
-                            </div>
-                            <div class="col-md-6">
-                                <label translate="generic.surname"></label>
-                                <input type="text" class="form-control" placeholder="Last name"
-                                       ng-model="transaction.surname">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label translate="generic.address"></label>
-                            <input type="text" class="form-control" placeholder="Address"
-                                   ng-model="transaction.address">
-                        </div>
-                        <div class="form-group">
-                            <label translate="generic.city"></label>
-                            <input type="text" class="form-control" placeholder="City" ng-model="transaction.city">
-                        </div>
-                        <div class="form-group">
-                            <label translate="generic.country"></label>
-                            <input type="text" class="form-control" placeholder="Country"
-                                   ng-model="transaction.country">
-                        </div>
-                        <div class="form-group">
-                            <label translate="generic.postalCode">Post code</label>
-                            <input type="text" class="form-control" placeholder="Post code"
-                                   ng-model="transaction.postalCode">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label translate="generic.cvv"></label>
-                            <input type="text" class="form-control" placeholder="Cvv" ng-model="transaction.cvv">
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <label translate="generic.expireMonth"></label>
-                                <select class="form-control" ng-model="transaction.expireMonth">
-                                    <option ng-repeat="i in getMonths() track by $index" value="{{ $index + 1 }}">
-                                        {{$index + 1}}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label translate="generic.expireYear"></label>
-                                <select class="form-control" ng-model="transaction.expireYear">
-                                    <option ng-repeat="i in getYears()" value="{{i}}">{{ i }}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label translate="generic.cardNumber"></label>
-                            <input type="text" class="form-control" placeholder="Card number" ng-model="transaction.cardNumber">
-                        </div>
-                        <div class="form-group">
-                            <label class="radio-inline" style="margin-top: 22px;">
-                                <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="visa"
-                                       ng-model="transaction.cardType">
-                                <img src="/app/imgs/visa_logo.gif"></label>
-                            <label class="radio-inline" style="margin-top: 22px;">
-                                <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="mastercard"
-                                       ng-model="transaction.cardType">
-                                <img src="/app/imgs/mastercard_logo.gif">
-                            </label>
-                        </div>
-                        <button type="button" style="margin-top:20px;" class="btn btn-default" ng-click="goNextStep(2)">Continue</button>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading" role="tab">
-            <h4 class="panel-title">
-                <a bs-collapse-toggle>
-                    Step 3: Confirm order
-                </a>
-            </h4>
-        </div>
-        <div class="panel-collapse" role="tabpanel" bs-collapse-target>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="row">
-                            <div class="col-md-4"><label>Subtotal:</label></div>
-                            <div class="col-md-8 text-right"><label>{{total | price}}</label></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4"><label>DDV(18%):</label></div>
-                            <div class="col-md-8 text-right"><label>{{(total * 0.18) | price}}</label></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4"><label>Total:</label></div>
-                            <div class="col-md-8 text-right"><label> {{(total * 1.18) | price}}</label></div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-md-offset-5">
-                        <button type="button" class="btn btn-default" ng-click="proceedOrder()">Confirm</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+<div class="bottom-button">
+    <a class="btn btn-primary" href="#/credit-card"><i class="fa fa-fw fa-credit-card"></i> {{ "action.creditCardPayment" | translate}}</a>
+    <button type="button" class="btn btn-primary" ng-click="pay()" ng-disabled="paid"><i class="fa fa-fw fa-paypal"></i> {{ "action.payPalPayment" | translate}}</button>
 </div>

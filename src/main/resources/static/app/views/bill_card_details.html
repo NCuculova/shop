@@ -1,0 +1,80 @@
+<bill-steps step="2"></bill-steps>
+<div class="page-header">
+    <h1 translate="action.payment"></h1>
+</div>
+<form name="billingForm"  ng-submit="payCreditCard()" novalidate>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label translate="generic.name"></label>
+                    <input type="text" class="form-control" placeholder="First name"
+                           ng-model="transaction.name" required>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label translate="generic.surname"></label>
+                    <input type="text" class="form-control" placeholder="Last name"
+                           ng-model="transaction.surname" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label translate="generic.address"></label>
+                <input type="text" class="form-control" placeholder="Address"
+                       ng-model="transaction.address" required>
+            </div>
+            <div class="form-group">
+                <label translate="generic.city"></label>
+                <input type="text" class="form-control" placeholder="City" ng-model="transaction.city" required>
+            </div>
+            <div class="form-group">
+                <label translate="generic.country"></label>
+                <input type="text" class="form-control" placeholder="Country"
+                       ng-model="transaction.country" required>
+            </div>
+            <div class="form-group">
+                <label translate="generic.postalCode">Post code</label>
+                <input type="text" class="form-control" placeholder="Post code"
+                       ng-model="transaction.postalCode" required>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="generic.cvv"></label>
+                <input type="text" class="form-control" placeholder="Cvv" ng-model="transaction.cvv" required>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label translate="generic.expireMonth"></label>
+                    <select class="form-control" ng-model="transaction.expireMonth" required>
+                        <option ng-repeat="i in getMonths() track by $index" value="{{ $index + 1 }}">
+                            {{$index + 1}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label translate="generic.expireYear"></label>
+                    <select class="form-control" ng-model="transaction.expireYear" required>
+                        <option ng-repeat="i in getYears()" value="{{i}}">{{ i }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label translate="generic.cardNumber"></label>
+                <input type="text" class="form-control" placeholder="Card number" ng-model="transaction.cardNumber" required>
+            </div>
+            <div class="form-group">
+                <label class="radio-inline" style="margin-top: 22px;">
+                    <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="visa"
+                           ng-model="transaction.cardType" required>
+                    <img src="/app/imgs/visa_logo.gif"></label>
+                <label class="radio-inline" style="margin-top: 22px;">
+                    <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="mastercard"
+                           ng-model="transaction.cardType" required>
+                    <img src="/app/imgs/mastercard_logo.gif">
+                </label>
+            </div>
+            <button type="submit" style="margin-top:20px;" class="btn btn-default" ng-disabled="!billingForm.$valid" ng-show="paid">Continue
+            </button>
+        </div>
+    </div>
+</form>

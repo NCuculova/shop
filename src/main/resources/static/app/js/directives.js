@@ -25,3 +25,14 @@ ShopDirectives.directive('productItem',[
      }
 }}]
 );
+
+ShopDirectives.directive('billSteps',[
+ function(){
+   return {
+     restrict: 'E',
+     scope: {
+        step: '='
+     },
+     templateUrl: '/app/directives/billing_step_navigation.html'
+}}]
+);

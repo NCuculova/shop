@@ -1,9 +1,6 @@
 package mk.ukim.finki.emk.shop.specifications;
 
-import mk.ukim.finki.emk.shop.model.Category;
-import mk.ukim.finki.emk.shop.model.Product;
-import mk.ukim.finki.emk.shop.model.ProductImage;
-import mk.ukim.finki.emk.shop.model.ShoppingCartItem;
+import mk.ukim.finki.emk.shop.model.*;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -31,5 +28,9 @@ public class Specifications {
 
     public static Specification<ShoppingCartItem> token(final String guid) {
         return (root, criteriaQuery, cb) -> cb.equal(root.<String>get("token"), guid);
+    }
+
+    public static Specification<CartInvoice> transaction(final String id) {
+        return (root, criteriaQuery, cb) -> cb.equal(root.<String>get("transactionId"), id);
     }
 }

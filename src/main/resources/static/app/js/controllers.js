@@ -84,8 +84,6 @@ Shop.controller('ProductCtrl', ['$scope', '$modal', 'Upload', 'crudService','Pro
     			$scope.images = ProductImage.getImagesByProductId({id : $scope.productId}, function(data) {});
     		})
     	};
-
-
   }
 ]);
 
@@ -241,8 +239,8 @@ Shop.controller('ProductDetailsCtrl', ['$scope', '$routeParams', 'crudService', 
   }
 ]);
 
-Shop.controller('CheckoutCtrl', ['$scope', '$rootScope', 'ShoppingCartItem', 'TransactionDetails',
-  function($scope, $rootScope, ShoppingCartItem, TransactionDetails) {
+Shop.controller('CheckoutCtrl', ['$scope', '$rootScope', '$window', 'ShoppingCartItem', 'Payment',
+  function($scope, $rootScope, $window, ShoppingCartItem, Payment) {
 
   var loadItems =  function(){
       $scope.items = ShoppingCartItem.getCart(sum);
@@ -257,25 +255,83 @@ Shop.controller('CheckoutCtrl', ['$scope', '$rootScope', 'ShoppingCartItem', 'Tr
    };
 
   		loadItems();
+	$scope.paid = false;
 
-	$scope.panels = {};
-  $scope.panels.activePanel = -1;
+	$scope.pay = function(){
+			$scope.paid = true;
+  		Payment.payPal(function(payment){
+				for (var link in payment.links){
+					if (payment.links[link].rel == "approval_url"){
+						$window.location.href = payment.links[link].href;
+					}
+				}
+  });
 
-	$scope.goNextStep = function(index){
-		$scope.panels.activePanel = index;
-	};
-
-	$scope.proceedOrder = function(){
-		TransactionDetails.payment($scope.transaction);
-	};
-
-	$scope.getMonths = function(){
-		return new Array(12);
-	};
-
-	$scope.getYears = function(){
-  		return [2015, 2016, 2017, 2018, 2019, 2020];
-  };
-
+		};
   }
+]);
+
+Shop.controller('BillingCtrl', ['$scope', '$location', '$modal', 'Payment',
+  function($scope, $location, $modal, Payment) {
+
+			$scope.paid = true;
+
+  		$scope.getMonths = function(){
+    		return new Array(12);
+    	};
+
+    	$scope.getYears = function(){
+      		return [2015, 2016, 2017, 2018, 2019, 2020];
+      };
+
+			var transactionDialog = $modal({
+          template : '/app/templates/modal-form.tpl.html',
+          contentTemplate : '/app/forms/transaction_info.html',
+          show : false
+      });
+
+  	  $scope.payCreditCard = function(){
+  	  		$scope.paid = false;
+          Payment.creditCard($scope.transaction, function(payment){
+          	console.log()
+          	if (payment.state == "approved"){
+          		var transactionId = payment.id;
+							$location.path("/invoice/" + transactionId);
+          	}else {
+							transactionDialog.show();
+          	}
+          }, function(e){
+          	console.log(e);
+          });
+      };
+  }
+]);
+
+Shop.controller('CartInvoiceCtrl', ['$scope', '$routeParams', '$rootScope', 'ShoppingCartItem', 'CartInvoice',
+     function($scope, $routeParams, $rootScope, ShoppingCartItem, CartInvoice) {
+					ShoppingCartItem.getCount(function(data){
+						$rootScope.total = data.total;
+					});
+
+					$scope.invoice = CartInvoice.getInvoiceByTransactionId({
+          	id : $routeParams.transactionID
+          });
+
+   	}
+   ]);
+
+Shop.controller('PayPalCtrl', ['$scope', '$routeParams', '$location', 'Payment',
+  function($scope, $routeParams, $location, Payment) {
+  		$scope.paid = false;
+			$scope.executePayPal = function(){
+				$scope.paid = true;
+			  Payment.payPalExecute({
+				  paymentId: $routeParams.paymentId,
+				  payerId: $routeParams.PayerID
+			}, function(payment){
+				  var transactionId = payment.id;
+          $location.path("/invoice/" + transactionId);
+			});
+		}
+	}
 ]);
