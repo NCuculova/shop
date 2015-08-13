@@ -119,7 +119,7 @@ public class PayPalServiceImpl implements PaymentService {
         // a `Payee` and `Amount` types
         Transaction transaction = new Transaction();
         transaction.setAmount(amount);
-        transaction.setDescription("eShop checkout");
+        transaction.setDescription("Proceeding your order");
         transactions.add(transaction);
         return transactions;
     }
@@ -139,6 +139,9 @@ public class PayPalServiceImpl implements PaymentService {
         redirectUrls.setCancelUrl("http://localhost:8080/#/pay_pal?success=false");
         redirectUrls.setReturnUrl("http://localhost:8080/#/pay_pal?success=true");
         payment.setRedirectUrls(redirectUrls);
+
+        String requestId = Long.toString(System.nanoTime());
+        APIContext apiContext = new APIContext(accessToken, requestId);
 
         try {
             Payment createdPayment = payment.create(apiContext);

@@ -7,4 +7,5 @@ import mk.ukim.finki.emk.shop.model.User;
  */
 public interface UserService extends BaseEntityCrudService<User>{
 
+    User findByEmail(String email);
 }

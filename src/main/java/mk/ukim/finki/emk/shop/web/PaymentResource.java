@@ -2,13 +2,12 @@ package mk.ukim.finki.emk.shop.web;
 
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.PayPalRESTException;
-import mk.ukim.finki.emk.shop.model.CartInvoice;
-import mk.ukim.finki.emk.shop.model.ShoppingCartItem;
-import mk.ukim.finki.emk.shop.model.TransactionDetails;
-import mk.ukim.finki.emk.shop.model.TransactionProduct;
+import mk.ukim.finki.emk.shop.model.*;
 import mk.ukim.finki.emk.shop.service.CartInvoiceService;
 import mk.ukim.finki.emk.shop.service.ShoppingCartItemService;
 import mk.ukim.finki.emk.shop.service.TransactionProductService;
+import mk.ukim.finki.emk.shop.service.UserService;
+import mk.ukim.finki.emk.shop.service.mail.MailService;
 import mk.ukim.finki.emk.shop.service.payment.PaymentService;
 import mk.ukim.finki.emk.shop.specifications.Specifications;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +37,12 @@ public class PaymentResource {
 
     @Autowired
     private TransactionProductService transactionProductService;
+
+    @Autowired
+    private MailService mailService;
+
+    @Autowired
+    private UserService userService;
 
     private void saveCartInvoice(Payment payment, List<ShoppingCartItem> items){
         Transaction transaction = payment.getTransactions().get(0);
@@ -77,6 +82,19 @@ public class PaymentResource {
         billingAddress.setPostalCode(transactionDetails.getPostalCode());
         billingAddress.setState(transactionDetails.getCountry());
 
+        String userEmail = transactionDetails.getEmail();
+        if(userEmail != null){
+            User user = userService.findByEmail(userEmail);
+            if(user != null) {
+                user.setAddress(transactionDetails.getAddress());
+                user.setCity(transactionDetails.getCity());
+                user.setCountry(transactionDetails.getCountry());
+                user.setFirstName(transactionDetails.getName());
+                user.setLastName(transactionDetails.getSurname());
+                user.setPostalCode(transactionDetails.getPostalCode());
+                userService.save(user);
+            }
+        }
         // ###CreditCard
         // A resource representing a credit card that can be
         // used to fund a payment.
@@ -96,8 +114,9 @@ public class PaymentResource {
         Payment payment = null;
             payment = paymentService.executeCreditCardPayment(billingAddress,
                     creditCard, items);
-
+        String email = "nadica.cuculova@gmail.com"; //payment.getPayer().getPayerInfo().getEmail();
         saveCartInvoice(payment, items);
+        mailService.sendPaymentEmail(email, items);
         shoppingCartItemService.clearCart(userToken);
         return payment;
     }
@@ -120,6 +139,8 @@ public class PaymentResource {
         String userToken = ShoppingCartResource.tokenUtil(request, response);
         List<ShoppingCartItem> items = shoppingCartItemService.findAll(Specifications.token(userToken));
         saveCartInvoice(payment, items);
+        String email = "nadica.cuculova@gmail.com"; //payment.getPayer().getPayerInfo().getEmail();
+        mailService.sendPaymentEmail(email, items);
         shoppingCartItemService.clearCart(userToken);
         return payment;
     }

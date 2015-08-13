@@ -23,7 +23,9 @@
     "cardNumber": "Број на картичка",
     "postalCode": "Поштенски број",
     "state": "Држава",
-    "countryCode": "Географски код"
+    "countryCode": "Географски код",
+    "username": "Корисничко име",
+    "password": "Лозинка"
   },
   "action": {
     "edit": "Промени",
@@ -35,6 +37,7 @@
     "clearCart": "Испразни кошничка",
     "checkout": "Плаќање",
     "payPalPayment": "Плати со PayPal",
-    "creditCardPayment": "Плати со кредитна картичка"
+    "creditCardPayment": "Плати со кредитна картичка",
+    "login": "Најави се"
   }
 }

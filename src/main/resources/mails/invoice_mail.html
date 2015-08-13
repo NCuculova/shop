@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Order confirmation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<p>Order details</p>
+<table width="90%" style="border-collapse:collapse;" cellpadding="5px">
+    <tr style="border-bottom: 1px solid gray;">
+        <th style="width: 10%;">#</th>
+        <th>Product name</th>
+        <th>Quantity</th>
+    </tr>
+    <tr th:each="i, index : ${items}" style="border-bottom: 1px dotted gray;">
+        <td th:text="${index.count}" style="width: 10%;"></td>
+        <td th:text="${i.product.name}"></td>
+        <td th:text="${i.product.quantity}" style="text-align: center;"></td>
+    </tr>
+</table>
+</body>
+</html>

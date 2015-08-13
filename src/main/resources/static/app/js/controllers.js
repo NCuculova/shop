@@ -239,8 +239,8 @@ Shop.controller('ProductDetailsCtrl', ['$scope', '$routeParams', 'crudService', 
   }
 ]);
 
-Shop.controller('CheckoutCtrl', ['$scope', '$rootScope', '$window', 'ShoppingCartItem', 'Payment',
-  function($scope, $rootScope, $window, ShoppingCartItem, Payment) {
+Shop.controller('CheckoutCtrl', ['$scope', '$rootScope', '$window', '$location', 'ShoppingCartItem', 'Payment',
+  function($scope, $rootScope, $window, $location, ShoppingCartItem, Payment) {
 
   var loadItems =  function(){
       $scope.items = ShoppingCartItem.getCart(sum);
@@ -257,6 +257,15 @@ Shop.controller('CheckoutCtrl', ['$scope', '$rootScope', '$window', 'ShoppingCar
   		loadItems();
 	$scope.paid = false;
 
+	$scope.payCard = function(){
+		if ($rootScope.user != null){
+			$location.path('/credit-card');
+		}
+		else{
+		  $location.path('/sign');
+		}
+	};
+
 	$scope.pay = function(){
 			$scope.paid = true;
   		Payment.payPal(function(payment){
@@ -271,8 +280,18 @@ Shop.controller('CheckoutCtrl', ['$scope', '$rootScope', '$window', 'ShoppingCar
   }
 ]);
 
-Shop.controller('BillingCtrl', ['$scope', '$location', '$modal', 'Payment',
-  function($scope, $location, $modal, Payment) {
+Shop.controller('BillingCtrl', ['$scope', '$rootScope', '$location', '$modal', 'Payment', 'User',
+  function($scope, $rootScope, $location, $modal, Payment, User) {
+
+			var user = User.getSignedUser(function(){
+				$scope.transaction = {};
+				$scope.transaction.name = user.firstName;
+				$scope.transaction.surname = user.lastName;
+				$scope.transaction.address = user.address;
+				$scope.transaction.city = user.city;
+				$scope.transaction.country = user.country;
+				$scope.transaction.postalCode = user.postalCode;
+			});
 
 			$scope.paid = true;
 
@@ -292,8 +311,8 @@ Shop.controller('BillingCtrl', ['$scope', '$location', '$modal', 'Payment',
 
   	  $scope.payCreditCard = function(){
   	  		$scope.paid = false;
+  	  		$scope.transaction.email = $rootScope.user.name;
           Payment.creditCard($scope.transaction, function(payment){
-          	console.log()
           	if (payment.state == "approved"){
           		var transactionId = payment.id;
 							$location.path("/invoice/" + transactionId);
@@ -335,3 +354,89 @@ Shop.controller('PayPalCtrl', ['$scope', '$routeParams', '$location', 'Payment',
 		}
 	}
 ]);
+
+Shop.controller('SearchCtrl', ['$scope', '$location', '$routeParams', 'Product',
+     function($scope, $location, $routeParams, Product) {
+			$scope.search = function () {
+            $location.path("/search").search({
+                    text: $scope.searchField
+            });
+      $scope.searchField = "";
+      };
+    if ($routeParams.text) {
+      $scope.products = Product.search({
+        text: $routeParams.text
+      });
+    }
+}]);
+
+Shop.controller('LoginCtrl', ['$scope', '$http', '$rootScope', '$routeParams', '$location', 'Auth',
+  function($scope, $http, $rootScope, $routeParams, $location, Auth) {
+  		$scope.credentials = {};
+  		$scope.login = function(){
+  			$http.post('login', $.param($scope.credentials), {
+  				headers: {
+  					"content-type": "application/x-www-form-urlencoded"
+  				}
+  			}).success(function(data) {
+            	Auth.authenticate(function() {
+                	$location.path("/");
+              });
+        }).error(function(data) {
+                 $location.path("/login");
+                 $scope.error = true;
+                 $rootScope.authenticated = false;
+        })
+      };
+
+      $scope.logout = Auth.logout;
+}]);
+
+Shop.controller('SignInUpCtrl', ['$scope', '$http', '$rootScope', '$routeParams', '$location', 'Auth', 'crudService',
+  function($scope, $http, $rootScope, $routeParams, $location, Auth, crudService) {
+  		$scope.credentials = {};
+  		$scope.signIn = function(){
+  			console.log("sign in");
+  			$http.post('login', $.param($scope.credentials), {
+  				headers: {
+  					"content-type": "application/x-www-form-urlencoded"
+  				}
+  			}).success(function(data) {
+            	Auth.authenticate(function() {
+                	$location.path("/credit-card");
+              });
+        }).error(function(data) {
+                 $location.path("/login");
+                 $scope.error = true;
+                 $rootScope.authenticated = false;
+        })
+      };
+
+			var user = crudService('user');
+			$scope.signUp = function(){
+			console.log("sign up");
+				$scope.valid = "";
+				$scope.error = false;
+				$scope.success = false;
+				$scope.taken = false;
+				if ($scope.user.password == $scope.user.password2){
+						user.save($scope.user, function(data){
+							console.log(data);
+							$scope.credentials.username = data.email;
+							$scope.valid = "You are ready to sign in!";
+							$scope.success = true;
+							$scope.user = {};
+							$scope.signUpForm.$setPristine();
+						}, function(error){
+							console.log(error);
+							$scope.valid = "Email already in use!";
+							$scope.taken = true;
+						});
+				}else{
+						$scope.valid = "Passwords do not match!";
+						$scope.error = true;
+				}
+			};
+}]);
+
+

@@ -23,7 +23,9 @@
                 "cardNumber": "Card number",
                 "postalCode": "Post code",
                 "state": "State",
-                "countryCode": "Country code"
+                "countryCode": "Country code",
+                "username": "Username",
+                "password": "Password"
         },
         "action": {
                 "edit": "Edit",
@@ -35,6 +37,7 @@
                 "clearCart": "Clear cart",
                 "checkout": "Checkout",
                 "payPalPayment": "Pay with PayPal",
-                "creditCardPayment": "Pay with credit card"
+                "creditCardPayment": "Pay with credit card",
+                "login": "Login"
         }
 }

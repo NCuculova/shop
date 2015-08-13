@@ -7,6 +7,8 @@ import java.util.Date;
  */
 public class TransactionDetails {
 
+    private String email;
+
     private String name;
 
     private String surname;
@@ -28,6 +30,14 @@ public class TransactionDetails {
     private int expireYear;
 
     private String cardType;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getName() {
         return name;

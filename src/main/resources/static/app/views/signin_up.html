@@ -1,0 +1,79 @@
+<bill-steps step="2"></bill-steps>
+<div class="page-header">
+    <h1 translate="action.proceed"></h1>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Don't have an account?..
+                <h3 class="panel-title">Sign up</h3>
+            </div>
+            <div class="panel-body">
+                <div class="alert alert-danger" ng-show="error">
+                    {{valid}}
+                </div>
+                <div class="alert alert-info" ng-show="success">
+                    {{valid}}
+                </div>
+                <form name="signUpForm">
+                    <div class="form-group">
+                        <label>{{ 'generic.email' | translate }}:</label>
+                        <input type="email" class="form-control" ng-model="user.email"/>
+                    </div>
+                    <div class="form-group">
+                        <label>{{ 'generic.password' | translate }}:</label>
+                        <input type="password" class="form-control" ng-model="user.password"
+                               placeholder="Enter your password"/>
+                    </div>
+                    <div class="form-group">
+                        <label>{{ 'generic.confirmPassword' | translate }}:</label>
+                        <input type="password" class="form-control" ng-model="user.password2"
+                               placeholder="Enter your password again"/>
+                    </div>
+                    <button type="button" ng-click="signUp()" class="btn btn-primary">{{ 'action.signUp' | translate
+                        }}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                User already?..
+                <h3 class="panel-title">Sign in</h3>
+            </div>
+            <div class="panel-body">
+                <div class="alert alert-danger" ng-show="taken">
+                    There was a problem logging in. Please try again.
+                </div>
+                <form name="signInForm" role="form" ng-submit="signIn()">
+                    <div class="form-group">
+                        <label>{{ 'generic.email' | translate }}:</label>
+                        <input type="email" class="form-control" ng-model="credentials.username"/>
+                    </div>
+                    <div class="form-group">
+                        <label>{{ 'generic.password' | translate }}:</label>
+                        <input type="password" class="form-control" ng-model="credentials.password"
+                               placeholder="Enter your password"/>
+                    </div>
+                    <button name="signInBtn" type="submit" class="btn btn-primary">{{ 'action.signIn' | translate }}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Proceed like a guest...
+                <h3 class="panel-title">Step 3</h3>
+            </div>
+            <div class="panel-body">
+                <a href="#/credit-card">Continue<i class="fa fa-fw fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+

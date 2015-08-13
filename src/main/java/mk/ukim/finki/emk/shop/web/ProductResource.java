@@ -30,10 +30,15 @@ public class ProductResource {
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    public List<Product> getAll() {
+      public List<Product> getAll() {
         List<Product> productList = productService
                 .findAll();
         return productList;
+    }
+
+    @RequestMapping(value="/search", method = RequestMethod.GET, produces = "application/json")
+    public List search(@RequestParam String text) {
+        return productService.search(text);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")

@@ -1,6 +1,9 @@
 package mk.ukim.finki.emk.shop.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Entity;
@@ -15,6 +18,7 @@ import java.util.Date;
  */
 
 @Entity
+@Indexed
 @Table(name = "products")
 public class Product extends BaseEntity {
 
@@ -22,9 +26,11 @@ public class Product extends BaseEntity {
         dateInserted = new Date();
     }
 
+    @Field
     @NotEmpty
     private String name;
 
+    @Field
     private String description;
 
     @NotNull
@@ -43,6 +49,7 @@ public class Product extends BaseEntity {
 
     @ManyToOne
     @NotNull
+    @IndexedEmbedded //Associated objects
     private Category category;
 
     public String getName() {

@@ -39,7 +39,12 @@ ShopServices.factory('Product', [ '$resource', function($resource) {
 			method : 'GET',
 			isArray: true,
 			url : '/api/product/category/:id'
-		}
+		},
+		'search':{
+    			method : 'GET',
+    			isArray: true,
+    			url : '/api/product/search'
+    		}
 	});
 }]);
 
@@ -98,4 +103,58 @@ ShopServices.factory('Payment', [ '$resource', function($resource) {
       }
      }
    });
+}]);
+
+
+ShopServices.factory('Auth', [ '$http', '$rootScope', '$location', function($http, $rootScope, $location) {
+	return {
+		authenticate: function(cb, secure){
+			$http.get('authenticated').success(function(data){
+				if(data.name){
+					$rootScope.authenticated = true;
+					$rootScope.user = data;
+					if(secure){
+					var pass = false;
+						 for (var auth in data.principal.authorities){
+								if(data.principal.authorities[auth].authority == 'ADMIN'){
+									pass = true;
+								}
+						 }
+						 if(!pass){
+						 	$location.path("/login");
+						 }
+          }
+					if(cb && typeof cb === 'function')
+						cb();
+				}else{
+					$rootScope.authenticated = false;
+					if(secure){
+						 $location.path("/login");
+					}
+				}
+			}).error(function(){
+				$location.path("/login");
+				$rootScope.authenticated = false;
+			});
+		},
+		logout: function(){
+			 $http.post('logout', {}).success(function() {
+          delete $rootScope.user;
+          delete $rootScope.authenticated;
+          $location.path("/");
+       }).error(function(data) {
+          delete $rootScope.user;
+          delete $rootScope.authenticated;
+       });
+		}
+	}
+}]);
+
+ShopServices.factory('User', [ '$resource', function($resource) {
+	return $resource('/api/user/', {},{
+		'getSignedUser':{
+			method : 'GET',
+			url : '/user'
+		}
+	});
 }]);

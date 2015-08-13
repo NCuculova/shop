@@ -14,12 +14,14 @@ Shop.config(['$routeProvider',function($routeProvider){
         }).when('/products/:id', {
           templateUrl: '/app/views/product_details.html',
           controller: 'ProductDetailsCtrl'
-        }).when('/products', {
-          templateUrl: '/app/views/products.html',
-          controller: 'ProductCtrl'
-        }).when('/categories', {
-          templateUrl: '/app/views/categories.html',
-          controller: 'CategoryCtrl'
+        }).when('/admin/products', {
+          templateUrl: '/app/views/admin/products.html',
+          controller: 'ProductCtrl',
+          secure: true
+        }).when('/admin/categories', {
+          templateUrl: '/app/views/admin/categories.html',
+          controller: 'CategoryCtrl',
+          secure: true
         }).when('/cart', {
           templateUrl: '/app/views/cart_details.html',
           controller: 'CartCtrl'
@@ -30,11 +32,22 @@ Shop.config(['$routeProvider',function($routeProvider){
           templateUrl: '/app/views/bill_card_details.html',
           controller: "BillingCtrl"
         }).when('/invoice/:transactionID', {
-          templateUrl: '/app/views/cart_invoice.html',
+          templateUrl: '/app/views/confirmation.html',
           controller: "CartInvoiceCtrl"
         }).when('/pay_pal', {
           templateUrl: '/app/views/pay_pal.html',
           controller: "PayPalCtrl"
+        }).when('/search', {
+          templateUrl: '/app/views/search_results.html',
+          controller: "SearchCtrl"
+        }).when('/login', {
+          templateUrl: '/app/views/login.html',
+          controller: "LoginCtrl"
+        }).when('/sign', {
+          templateUrl: '/app/views/signin_up.html',
+          controller: "SignInUpCtrl"
+        }).when('/admin', {
+          templateUrl: '/app/views/admin/admin.html',
+          secure: true
         });
-      }
-]);
+}]);

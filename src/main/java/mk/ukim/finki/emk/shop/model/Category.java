@@ -1,5 +1,7 @@
 package mk.ukim.finki.emk.shop.model;
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Entity;
@@ -10,12 +12,17 @@ import javax.persistence.Table;
  */
 
 @Entity
+@Indexed
 @Table(name="categories")
 public class Category extends BaseEntity{
 
+    // You have to mark the fields you want to make searchable annotating them
+    // with Field.
+    @Field
     @NotEmpty
     private String name;
 
+    @Field
     private String description;
 
     public String getName() {

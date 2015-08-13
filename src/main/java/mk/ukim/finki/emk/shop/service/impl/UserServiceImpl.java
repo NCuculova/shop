@@ -19,4 +19,9 @@ public class UserServiceImpl extends BaseEntityCrudServiceImpl<User,UserReposito
     protected UserRepository getRepository() {
         return repository;
     }
+
+    @Override
+    public User findByEmail(String email) {
+        return repository.findByEmail(email);
+    }
 }

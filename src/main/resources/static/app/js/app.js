@@ -15,9 +15,15 @@ Shop.config([ '$routeProvider', '$httpProvider', '$locationProvider', '$translat
           $translateProvider.preferredLanguage('en');
           // Enable escaping of HTML
           $translateProvider.useSanitizeValueStrategy('escaped');
-		}]).run(['$rootScope', 'ShoppingCartItem', function($rootScope, ShoppingCartItem){
+		}]).run(['$rootScope', 'ShoppingCartItem', 'Auth', function($rootScope, ShoppingCartItem, Auth){
             var items = ShoppingCartItem.getCart(function(){
               $rootScope.total = items.length;
+            });
+            $rootScope.$on('$routeChangeStart', function(event, next, current){
+              if(next){
+                var secure = next.secure || false;
+                Auth.authenticate(null, secure);
+              }
             });
 		}]);
 
