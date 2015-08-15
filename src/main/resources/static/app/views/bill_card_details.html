@@ -40,7 +40,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label translate="generic.cvv"></label>
-                <input type="text" class="form-control" placeholder="Cvv" ng-model="transaction.cvv" required>
+                <input type="text" class="form-control" placeholder="Cvv" ng-model="transaction.cvv" cc-cvc required>
             </div>
             <div class="form-group row">
                 <div class="col-md-6">
@@ -60,15 +60,15 @@
             </div>
             <div class="form-group">
                 <label translate="generic.cardNumber"></label>
-                <input type="text" class="form-control" placeholder="Card number" ng-model="transaction.cardNumber" required>
+                <input type="text" class="form-control" placeholder="Card number" cc-format cc-number cc-type="transaction.cardType" ng-model="transaction.cardNumber" required>
             </div>
             <div class="form-group">
                 <label class="radio-inline" style="margin-top: 22px;">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="visa"
+                    <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Visa"
                            ng-model="transaction.cardType" required>
                     <img src="/app/imgs/visa_logo.gif"></label>
                 <label class="radio-inline" style="margin-top: 22px;">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="mastercard"
+                    <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="MasterCard"
                            ng-model="transaction.cardType" required>
                     <img src="/app/imgs/mastercard_logo.gif">
                 </label>

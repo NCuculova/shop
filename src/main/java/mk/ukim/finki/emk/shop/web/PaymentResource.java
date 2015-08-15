@@ -44,7 +44,7 @@ public class PaymentResource {
     @Autowired
     private UserService userService;
 
-    private void saveCartInvoice(Payment payment, List<ShoppingCartItem> items){
+    private void saveCartInvoice(Payment payment, List<ShoppingCartItem> items, User user) {
         Transaction transaction = payment.getTransactions().get(0);
         Date date = new Date();
         CartInvoice cartInvoice = new CartInvoice();
@@ -55,6 +55,9 @@ public class PaymentResource {
         cartInvoice.setTaks(Double.parseDouble(details.getTax()));
         cartInvoice.setDateInserted(date);
         cartInvoice.setTransactionId(payment.getId());
+        if (user != null) {
+            cartInvoice.setUser(user);
+        }
         cartInvoiceService.save(cartInvoice);
 
         for (ShoppingCartItem item : items) {
@@ -81,11 +84,11 @@ public class PaymentResource {
         billingAddress.setLine1(transactionDetails.getAddress());
         billingAddress.setPostalCode(transactionDetails.getPostalCode());
         billingAddress.setState(transactionDetails.getCountry());
-
+        User user = null;
         String userEmail = transactionDetails.getEmail();
-        if(userEmail != null){
-            User user = userService.findByEmail(userEmail);
-            if(user != null) {
+        if (userEmail != null) {
+            user = userService.findByEmail(userEmail);
+            if (user != null) {
                 user.setAddress(transactionDetails.getAddress());
                 user.setCity(transactionDetails.getCity());
                 user.setCountry(transactionDetails.getCountry());
@@ -112,10 +115,10 @@ public class PaymentResource {
         List<ShoppingCartItem> items = shoppingCartItemService.findAll(Specifications.token(userToken));
 
         Payment payment = null;
-            payment = paymentService.executeCreditCardPayment(billingAddress,
-                    creditCard, items);
+        payment = paymentService.executeCreditCardPayment(billingAddress,
+                creditCard, items);
         String email = "nadica.cuculova@gmail.com"; //payment.getPayer().getPayerInfo().getEmail();
-        saveCartInvoice(payment, items);
+        saveCartInvoice(payment, items, user);
         mailService.sendPaymentEmail(email, items);
         shoppingCartItemService.clearCart(userToken);
         return payment;
@@ -132,15 +135,17 @@ public class PaymentResource {
     }
 
     @RequestMapping(value = "/paypal-execute", method = RequestMethod.POST, produces = "application/json")
-    public Payment executePayPalPayment(@RequestParam String payerId, @RequestParam String paymentId, HttpServletRequest request,
-                                        HttpServletResponse response) {
+    public Payment executePayPalPayment(@RequestParam String payerId, @RequestParam String paymentId, @RequestParam String email,
+                                        HttpServletRequest request, HttpServletResponse response) {
 
         Payment payment = paymentService.executePayPalPayment(paymentId, payerId);
         String userToken = ShoppingCartResource.tokenUtil(request, response);
         List<ShoppingCartItem> items = shoppingCartItemService.findAll(Specifications.token(userToken));
-        saveCartInvoice(payment, items);
-        String email = "nadica.cuculova@gmail.com"; //payment.getPayer().getPayerInfo().getEmail();
-        mailService.sendPaymentEmail(email, items);
+        User user = userService.findByEmail(email);
+        saveCartInvoice(payment, items, user);
+        String mail = "nadica.cuculova@gmail.com"; //payment.getPayer().getPayerInfo().getEmail();
+        //send e-mail invoice to the client
+        mailService.sendPaymentEmail(mail, items);
         shoppingCartItemService.clearCart(userToken);
         return payment;
     }

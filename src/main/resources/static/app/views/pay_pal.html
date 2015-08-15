@@ -2,4 +2,38 @@
 <div class="page-header">
     <h1 translate="action.payPalPayment"></h1>
 </div>
- <button type="button" class="btn btn-info" ng-click="executePayPal()" ng-disabled="paid">Confirm payment</button>
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Want to improve your shopping experience?..
+                <h3 class="panel-title">Sign in</h3>
+            </div>
+            <div class="panel-body">
+                <div class="alert alert-danger" ng-show="error">
+                    There was a problem logging in. Please try again.
+                </div>
+                <div class="alert alert-info" ng-show="success">
+                    Sign in successful. Please finish your payment.
+                </div>
+                <form name="signInForm" role="form" ng-submit="signIn()">
+                    <div class="form-group">
+                        <label>{{ 'generic.email' | translate }}:</label>
+                        <input type="email" class="form-control" ng-model="credentials.username"/>
+                    </div>
+                    <div class="form-group">
+                        <label>{{ 'generic.password' | translate }}:</label>
+                        <input type="password" class="form-control" ng-model="credentials.password"
+                               placeholder="Enter your password"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary">{{ 'action.signIn' | translate }}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-offset-2 col-md-4">
+        <button type="button" class="btn btn-info" ng-click="executePayPal()" ng-disabled="paid">Confirm payment
+        </button>
+    </div>
+</div>

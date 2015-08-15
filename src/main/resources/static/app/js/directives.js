@@ -1,38 +1,42 @@
 var ShopDirectives = angular.module('shop.directives', []);
 
-ShopDirectives.directive('productItem',[
- function(){
-   return {
-     restrict: 'E',
-     scope: {
-       product: '=',
-       addToCart: '='
-     },
-     templateUrl: '/app/directives/product.html',
-     controller: function($scope, $modal){
-        var imageViewDialog = $modal({
-                        	scope : $scope,
-                          template : '/app/templates/modal-image.tpl.html',
-                          contentTemplate :'/app/forms/product_image.html',
-                        	show : false
-             });
+ShopDirectives.directive('productItem', [
 
-        $scope.showImage = function(productId){
-            $scope.productId = productId;
-            imageViewDialog.show();
+  function() {
+    return {
+      restrict: 'E',
+      scope: {
+        product: '=',
+        addToCart: '='
+      },
+      templateUrl: '/app/directives/product.html',
+      controller: function($scope, $modal) {
+        var imageViewDialog = $modal({
+          scope: $scope,
+          template: '/app/templates/modal-image.tpl.html',
+          contentTemplate: '/app/forms/product_image.html',
+          show: false
+        });
+
+        $scope.showImage = function(productId) {
+          $scope.productId = productId;
+          imageViewDialog.show();
         };
 
-     }
-}}]
-);
+      }
+    }
+  }
+]);
 
-ShopDirectives.directive('billSteps',[
- function(){
-   return {
-     restrict: 'E',
-     scope: {
+ShopDirectives.directive('billSteps', [
+
+  function() {
+    return {
+      restrict: 'E',
+      scope: {
         step: '='
-     },
-     templateUrl: '/app/directives/billing_step_navigation.html'
-}}]
-);
+      },
+      templateUrl: '/app/directives/billing_step_navigation.html'
+    }
+  }
+]);
