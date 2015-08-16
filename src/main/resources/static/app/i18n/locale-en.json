@@ -25,7 +25,14 @@
                 "state": "State",
                 "countryCode": "Country code",
                 "username": "Username",
-                "password": "Password"
+                "password": "Password",
+                "email": "E-mail",
+                "confirmPassword": "Confirm password",
+                "allOrders": "All orders",
+                "expireMonth": "Expire month",
+                "expireYear": "Expire year",
+                "surname": "Surname",
+                "country": "Country"
         },
         "action": {
                 "edit": "Edit",
@@ -38,6 +45,9 @@
                 "checkout": "Checkout",
                 "payPalPayment": "Pay with PayPal",
                 "creditCardPayment": "Pay with credit card",
-                "login": "Login"
+                "login": "Login",
+                "signUp": "Sign Up",
+                "signIn": "Sign In",
+                "payment": "Payment"
         }
 }

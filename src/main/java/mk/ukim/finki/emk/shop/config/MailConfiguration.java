@@ -43,7 +43,6 @@ public class MailConfiguration implements EnvironmentAware {
 
     @Bean
     public JavaMailSender javaMailSender() {
-        System.out.println("Configuring mail sender");
 
         boolean active = propertyResolver.getProperty(PROP_ACTIVE, Boolean.class, false);
         if (!active){

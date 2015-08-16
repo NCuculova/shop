@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1>Categories</h1>
+    <h1>{{"generic.categories" | translate}}</h1>
 </div>
 <div class="top-button">
     <button class="btn btn-primary" type="button" ng-click="addCategory()">
@@ -12,7 +12,7 @@
         <th translate="generic.name"></th>
         <th translate="generic.description"></th>
         <th translate="action.edit"></th>
-        <th translate="generic.delete"></th>
+        <th translate="action.delete"></th>
     </tr>
     <tr ng-repeat="c in categories">
         <td>{{c.id}}</td>
