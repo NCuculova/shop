@@ -50,6 +50,16 @@ Shop.config(['$routeProvider',
     }).when('/admin', {
       templateUrl: '/app/views/admin/admin.html',
       secure: true
+    }).when('/admin/history', {
+      templateUrl: '/app/views/admin/orders_history.html',
+      controller: "HistoryCtrl",
+      secure: true
+    }).when('/orders', {
+      templateUrl: '/app/views/orders.html',
+      controller: "OrdersCtrl"
+    }).when('/details/:id', {
+      templateUrl: '/app/views/order_details.html',
+      controller: "OrderDetailsCtrl"
     });
   }
 ]);

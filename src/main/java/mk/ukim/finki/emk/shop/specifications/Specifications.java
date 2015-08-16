@@ -33,4 +33,12 @@ public class Specifications {
     public static Specification<CartInvoice> transaction(final String id) {
         return (root, criteriaQuery, cb) -> cb.equal(root.<String>get("transactionId"), id);
     }
+
+    public static Specification<CartInvoice> user(final Long id) {
+        return (root, criteriaQuery, cb) -> cb.equal(root.<User>get("user").<Long>get("id"), id);
+    }
+
+    public static Specification<TransactionProduct> cart(final Long id) {
+        return (root, criteriaQuery, cb) -> cb.equal(root.<CartInvoice>get("cartInvoice").<Long>get("id"), id);
+    }
 }

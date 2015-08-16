@@ -88,11 +88,15 @@ ShopServices.factory('CartInvoice', ['$resource',
       'getInvoiceByTransactionId': {
         method: 'GET',
         url: '/api/cart_invoice/transaction/:id'
+      },
+      'getInvoiceByUserId': {
+        method: 'GET',
+        url: '/api/cart_invoice/user/:id',
+        isArray: true
       }
     });
   }
 ]);
-
 
 ShopServices.factory('Payment', ['$resource',
   function($resource) {
@@ -117,7 +121,6 @@ ShopServices.factory('Payment', ['$resource',
     });
   }
 ]);
-
 
 ShopServices.factory('Auth', ['$http', '$rootScope', '$location',
   function($http, $rootScope, $location) {
@@ -171,6 +174,18 @@ ShopServices.factory('User', ['$resource',
       'getSignedUser': {
         method: 'GET',
         url: '/user'
+      }
+    });
+  }
+]);
+
+ShopServices.factory('TransactionProduct', ['$resource',
+  function($resource) {
+    return $resource('/api/transaction_products/', {}, {
+      'getCartProducts': {
+        method: 'GET',
+        url: '/api/transaction_products/cart/:id',
+        isArray: true
       }
     });
   }

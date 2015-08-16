@@ -1,0 +1,26 @@
+<div class="page-header">
+    <h1 translate="generic.allOrders"></h1>
+</div>
+
+<table datatable="ng"  dt-options="dtOptions" class="table table-striped row-border hover">
+    <thead>
+    <tr>
+        <th>Transaction id</th>
+        <th>Date</th>
+        <th>Sub total</th>
+        <th>Tax</th>
+        <th>Total</th>
+        <th>Buyer</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="o in orders">
+        <td>{{o.transactionId}}</td>
+        <td>{{o.dateInserted }}</td>
+        <td>{{o.subTotal | price}}</td>
+        <td>{{o.taks | price}}</td>
+        <td>{{o.totalAmount | price}}</td>
+        <td>{{o.user.email}}</td>
+    </tr>
+    </tbody>
+</table>

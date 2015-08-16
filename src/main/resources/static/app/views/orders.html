@@ -1,0 +1,17 @@
+<div class="page-header">
+    <h1 translate="generic.orderHistory"><i class="fa fa-glass"/></h1>
+</div>
+<table class="table table-striped">
+    <tr>
+        <th>Transaction id</th>
+        <th>Date</th>
+        <th>Total</th>
+        <th>View details</th>
+    </tr>
+    <tr ng-repeat="o in orders">
+        <td>{{o.transactionId}}</td>
+        <td>{{o.dateInserted}}</td>
+        <td>{{o.totalAmount | price}}</td>
+        <td><a href="#/details/{{o.id}}">Order details</a></td>
+    </tr>
+</table>

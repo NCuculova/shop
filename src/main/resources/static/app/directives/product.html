@@ -1,23 +1,17 @@
 <div class="panel panel-default product-panel">
     <div class="panel-body">
-        <div class="row">
-            <div class="col-md-6">
-                <a ng-click="showImage(product.id)" href="">
-                    <img ng-src="/api/product_images/product_thumbnail/{{product.id}}" class="img-thumbnail"/>
-                </a>
-            </div>
-            <div class="col-md-6">
-            </div>
-        </div>
+        <a ng-click="showImage(product.id)" href="">
+            <img ng-src="/api/product_images/product_thumbnail/{{product.id}}" class="img-thumbnail"/>
+        </a>
     </div>
     <div class="panel-footer">
         <div class="row">
-            <div class="col-md-7">
-                <h4><a href="#/products/{{product.id}}">{{ product.name }}</a></h4>
+            <div class="col-md-12">
+                <h4><a href="#/products/{{product.id}}">{{ product.name | limitTo: 20 }}{{product.name.length > 20 ? '...' : ''}}</a></h4>
                 <h5>{{ product.price | price}}</h5>
             </div>
-            <div class="col-md-5s">
-                <button ng-click="addToCart(product)" class="btn btn-default btn-sm" type="button"><i
+            <div class="col-md-12 text-right">
+                <button ng-click="addToCart(product)" class="btn btn-default btn-xs" type="button"><i
                         class="fa fa-fw fa-shopping-cart"></i> {{ "action.addToCart" | translate }}
                 </button>
             </div>

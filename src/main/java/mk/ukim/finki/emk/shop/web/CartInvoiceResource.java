@@ -56,6 +56,13 @@ public class CartInvoiceResource {
         return cartInvoice;
     }
 
+    @RequestMapping(value = "user/{id}", method = RequestMethod.GET, produces = "application/json")
+    public List<CartInvoice> getOrdersByUserId(@PathVariable Long id,
+                                             HttpServletResponse response) {
+        List<CartInvoice> orders = cartInvoiceService.findAll(Specifications.user(id));
+        return orders;
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public void delete(@PathVariable Long id, HttpServletRequest request,
                        HttpServletResponse response) {

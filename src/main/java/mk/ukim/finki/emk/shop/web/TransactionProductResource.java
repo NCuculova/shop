@@ -2,6 +2,7 @@ package mk.ukim.finki.emk.shop.web;
 
 import mk.ukim.finki.emk.shop.model.TransactionProduct;
 import mk.ukim.finki.emk.shop.service.TransactionProductService;
+import mk.ukim.finki.emk.shop.specifications.Specifications;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,5 +50,12 @@ public class TransactionProductResource {
     public void delete(@PathVariable Long id, HttpServletRequest request,
                        HttpServletResponse response) {
         transactionProductService.delete(id);
+    }
+
+    @RequestMapping(value = "/cart/{id}", method = RequestMethod.GET, produces = "application/json")
+    public List<TransactionProduct> getCartProducts(@PathVariable Long id,
+                                     HttpServletResponse response) {
+        List<TransactionProduct> products = transactionProductService.findAll(Specifications.cart(id));
+        return products;
     }
 }

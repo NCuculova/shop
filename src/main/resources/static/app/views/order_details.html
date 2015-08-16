@@ -1,0 +1,19 @@
+<div class="page-header">
+    <h1 translate="generic.orderDetails"><i class="fa fa-glass"/></h1>
+</div>
+<div class="panel panel-default" ng-repeat="t in transactions">
+    <div class="panel-body">
+       <div class="row">
+           <div class="col-md-4">
+               <img ng-src="/api/product_images/product_thumbnail/{{t.product.id}}" class="img-thumbnail">
+           </div>
+           <div class="col-md-8">
+               <p>Quantity: {{t.quantity}}</p>
+               <p>Product: {{t.product.name}}</p>
+               <p>Description: {{t.product.description}}</p>
+               <p>Price: {{t.unitPrice | price}}</p>
+           </div>
+
+       </div>
+    </div>
+</div>

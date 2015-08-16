@@ -8,11 +8,14 @@ var CSS = [
 'bower_components/angular-ui-select/dist/select.min.css',
 'bower_components/components-font-awesome/css/font-awesome.min.css',
 'bower_components/angular-motion/dist/angular-motion.min.css',
+'bower_components/angular-loading-bar/build/loading-bar.min.css',
+'bower_components/angular-datatables/dist/plugins/bootstrap/datatables.bootstrap.min.css',
 'css/main.css'
 ];
 
 var LIBS = [
 'bower_components/jquery/dist/jquery.min.js',
+'bower_components/datatables/media/js/jquery.dataTables.min.js',
 'bower_components/bootstrap/dist/js/bootstrap.min.js',
 'bower_components/angular/angular.min.js',
 'bower_components/angular-route/angular-route.min.js',
@@ -26,7 +29,10 @@ var LIBS = [
 'bower_components/angular-translate/angular-translate.min.js',
 'bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js',
 'bower_components/angular-animate/angular-animate.min.js',
-'bower_components/angular-credit-cards/release/angular-credit-cards.js'
+'bower_components/angular-credit-cards/release/angular-credit-cards.js',
+'bower_components/angular-loading-bar/build/loading-bar.min.js',
+'bower_components/angular-datatables/dist/angular-datatables.min.js',
+'bower_components/angular-datatables/dist/plugins/bootstrap/angular-datatables.bootstrap.min.js'
 ];
 
 var APP = [

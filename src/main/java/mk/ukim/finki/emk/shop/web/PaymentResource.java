@@ -109,7 +109,7 @@ public class PaymentResource {
         creditCard.setFirstName(transactionDetails.getName());
         creditCard.setLastName(transactionDetails.getSurname());
         creditCard.setNumber(transactionDetails.getCardNumber());
-        creditCard.setType(transactionDetails.getCardType());
+        creditCard.setType(transactionDetails.getCardType().toLowerCase());
 
         String userToken = ShoppingCartResource.tokenUtil(request, response);
         List<ShoppingCartItem> items = shoppingCartItemService.findAll(Specifications.token(userToken));

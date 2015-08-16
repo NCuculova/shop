@@ -24,7 +24,7 @@ public class CartInvoice extends BaseEntity {
 
     private String transactionId;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy HH:mm")
     private Date dateInserted;
 
     @ManyToOne

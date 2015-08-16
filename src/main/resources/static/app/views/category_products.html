@@ -1,5 +1,9 @@
+<div class="page-header">
+    <h1>Products <small ng-if="category">-</small> {{ category.name }}</h1>
+
+</div>
 <div class="row">
-    <div ng-repeat="p in products" class="col-md-4">
+    <div ng-repeat="p in products" class="col-md-3">
         <product-item product="p" add-to-cart="addToCart"></product-item>
     </div>
 </div>

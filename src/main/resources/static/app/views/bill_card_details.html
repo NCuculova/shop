@@ -2,6 +2,9 @@
 <div class="page-header">
     <h1 translate="action.payment"></h1>
 </div>
+<div class="alert alert-danger" ng-show="error">
+    Something wrong happened. Please check information you provided!
+</div>
 <form name="billingForm"  ng-submit="payCreditCard()" novalidate>
     <div class="row">
         <div class="col-md-6">
@@ -66,14 +69,14 @@
                 <label class="radio-inline" style="margin-top: 22px;">
                     <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Visa"
                            ng-model="transaction.cardType" required>
-                    <img src="/app/imgs/visa_logo.gif"></label>
+                    <img src="/images/visa_logo.gif"></label>
                 <label class="radio-inline" style="margin-top: 22px;">
                     <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="MasterCard"
                            ng-model="transaction.cardType" required>
-                    <img src="/app/imgs/mastercard_logo.gif">
+                    <img src="/images/mastercard_logo.gif">
                 </label>
             </div>
-            <button type="submit" style="margin-top:20px;" class="btn btn-default" ng-disabled="!billingForm.$valid" ng-show="paid">Continue
+            <button type="submit" style="margin-top:20px;" class="btn btn-default" ng-disabled="!billingForm.$valid || paid">Continue
             </button>
         </div>
     </div>
